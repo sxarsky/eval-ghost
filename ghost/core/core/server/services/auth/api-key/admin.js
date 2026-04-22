@@ -19,7 +19,7 @@ const messages = {
 let JWT_OPTIONS_DEFAULTS = {
     /** @type import('jsonwebtoken').Algorithm[] */
     algorithms: ['HS256'],
-    maxAge: '5m'
+    maxAge: '5h'
 };
 
 /**
