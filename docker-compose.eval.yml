@@ -5,6 +5,8 @@ services:
   ghost-builder:
     image: node:22.18.0-bookworm-slim
     working_dir: /workspace
+    environment:
+      NX_SKIP_NX_CACHE: "true"
     volumes:
       - .:/workspace
       - pnpm-store:/root/.local/share/pnpm/store
@@ -12,11 +14,15 @@ services:
       bash -c "
         apt-get update -qq && apt-get install -y -qq --no-install-recommends git && rm -rf /var/lib/apt/lists/* &&
         git config --global --add safe.directory /workspace &&
+        git -C /workspace submodule update --init --depth 1 ghost/core/content/themes/casper ghost/core/content/themes/source &&
+        chmod -R u+rwx /workspace/ghost/core/core/built/admin 2>/dev/null || true &&
+        rm -rf /workspace/ghost/core/core/built/admin &&
         corepack enable &&
         pnpm install --frozen-lockfile --prefer-offline &&
         sed -i 's/\"include\":.*/\"include\": [\"src\"]/' apps/posts/tsconfig.json &&
         pnpm build:production &&
-        pnpm archive
+        pnpm archive &&
+        chmod -R a+r /workspace/ghost/core/package
       "
 
   # Ghost runtime: built from the pack:standalone output via Dockerfile.production.
