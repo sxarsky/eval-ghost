@@ -107,3 +107,18 @@ jobs:
           skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
           anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
           githubToken: ${{ steps.app-token.outputs.token }}
+          skyrampMcpVersion: next
+          skyrampExecutorVersion: v1.3.14
+
+          targetSetupCommand: >-
+            docker compose -f docker-compose.eval.yml run --rm ghost-builder &&
+            docker compose -f docker-compose.eval.yml up ghost --build -d
+          targetReadyCheckCommand: >-
+            bash -c 'status=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:2368/ghost/api/admin/site/); [[ "$status" == "200" || "$status" == "401" ]]'
+          targetReadyCheckTimeout: 180
+          authTokenCommand: 'bash get-auth-token.sh'
+
+          testDirectory: 'tests/backend'
+          autoCommit: true
+          postPrComment: true
+          enableDebug: true
