@@ -1,0 +1,62 @@
+services:
+  # Build step: install deps, build assets, and produce the pack:standalone output.
+  # Mirrors Ghost's ci.yml job_build_artifacts steps.
+  # Output: ghost/core/package/ — used as the docker build context for the ghost service.
+  ghost-builder:
+    image: node:22.18.0-bookworm-slim
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - pnpm-store:/root/.local/share/pnpm/store
+    command: >
+      bash -c "
+        apt-get update -qq && apt-get install -y -qq --no-install-recommends git && rm -rf /var/lib/apt/lists/* &&
+        git config --global --add safe.directory /workspace &&
+        corepack enable &&
+        pnpm install --frozen-lockfile --prefer-offline &&
+        sed -i 's/\"include\":.*/\"include\": [\"src\"]/' apps/posts/tsconfig.json &&
+        pnpm build:production &&
+        pnpm --filter ghost pack:standalone
+      "
+
+  # Ghost runtime: built from the pack:standalone output via Dockerfile.production.
+  # SQLite — no MySQL sidecar needed for the eval.
+  # Healthcheck probes the Admin API — 401 means Ghost is up and running.
+  # security__staffDeviceVerification=false disables 2FA device-check so get-auth-token.sh
+  # can log in and create an integration without needing mailpit or email verification.
+  ghost:
+    build:
+      context: ghost/core/package
+      dockerfile: ../../../Dockerfile.production
+      target: full
+    ports:
+      - "2368:2368"
+    environment:
+      NODE_ENV: production
+      url: http://localhost:2368
+      server__host: 0.0.0.0
+      server__port: 2368
+      database__client: sqlite3
+      database__connection__filename: content/data/ghost.db
+      security__staffDeviceVerification: false
+    # Fix asset permissions: the builder runs as root producing root-owned files,
+    # but Ghost's runtime user (node/UID 1000) can't read them, causing all
+    # /ghost/assets/* to return 500 and breaking browser login (CSRF session POST
+    # fails with "Request was formatted incorrectly" when the SPA can't load).
+    # chmod as root then exec node as the original node user (UID 1000) to avoid
+    # running the Ghost process with unnecessary root privileges.
+    user: root
+    command: >
+      sh -c "chmod -R a+r /home/ghost/core/built/admin/ && exec setpriv --reuid=ghost --regid=ghost --init-groups node index.js"
+    volumes:
+      - ghost-content:/home/ghost/content
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:2368/ghost/api/admin/site/').then(r=>process.exit(r.ok||r.status===401?0:1)).catch(()=>process.exit(1))"]
+      interval: 5s
+      timeout: 5s
+      retries: 24
+      start_period: 15s
+
+volumes:
+  pnpm-store:
+  ghost-content:
