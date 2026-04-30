@@ -16,7 +16,7 @@ services:
         pnpm install --frozen-lockfile --prefer-offline &&
         sed -i 's/\"include\":.*/\"include\": [\"src\"]/' apps/posts/tsconfig.json &&
         pnpm build:production &&
-        pnpm --filter ghost pack:standalone
+        pnpm archive
       "
 
   # Ghost runtime: built from the pack:standalone output via Dockerfile.production.
