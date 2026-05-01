@@ -131,11 +131,11 @@ interface GiftServiceDeps {
     tiersService: TiersService;
     giftEmailService: GiftEmailService;
     staffServiceEmails: StaffServiceEmails;
-    schedulerAdapter: SchedulerAdapter | null;
-    schedulerIntegration: SchedulerIntegration | null;
-    getSignedAdminToken: GetSignedAdminToken | null;
-    urlJoin: UrlJoin | null;
-    apiUrl: string | null;
+    schedulerAdapter?: SchedulerAdapter | null;
+    schedulerIntegration?: SchedulerIntegration | null;
+    getSignedAdminToken?: GetSignedAdminToken | null;
+    urlJoin?: UrlJoin | null;
+    apiUrl?: string | null;
 }
 
 interface ReminderSend {
