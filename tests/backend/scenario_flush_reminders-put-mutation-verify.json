@@ -1,0 +1,28 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/ghost/api/admin/gifts/flush_reminders",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-05-01T22:10:14.596Z",
+    "Scheme": "http"
+  }
+]
