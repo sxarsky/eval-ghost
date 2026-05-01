@@ -1,0 +1,36 @@
+# Skyramp Workspace Configuration for Ghost eval.
+# Uses SQLite via docker-compose.eval.yml — no external database needed.
+# Ghost Admin API uses session cookie auth: Cookie: ghost-admin-api-session=<value>
+# get-auth-token.sh outputs "ghost-admin-api-session=<value>" as SKYRAMP_TEST_TOKEN.
+# authType: cookie causes the executor to send: Cookie: <SKYRAMP_TEST_TOKEN>
+# Ghost Content API uses ?key=<key> query-param auth — headers are not supported.
+# ghost-content service is listed for endpoint discovery only; authType: none
+# prevents Skyramp from sending a bogus auth header to content API endpoints.
+workspace:
+  repoName: sxarsky/eval-ghost
+  repoUrl: git@github.com:sxarsky/eval-ghost.git
+metadata:
+  schemaVersion: v1
+  mcpVersion: 1.0.0
+  executorVersion: v1.0.0
+services:
+  - serviceName: ghost
+    language: typescript
+    framework: playwright
+    testDirectory: tests/backend
+    api:
+      authType: cookie
+      authHeader: Cookie
+      baseUrl: http://localhost:2368/ghost/api/admin
+    runtimeDetails:
+      runtime: local
+  - serviceName: ghost-content
+    language: typescript
+    framework: playwright
+    testDirectory: tests/backend
+    api:
+      authType: none
+      authHeader: ""
+      baseUrl: http://localhost:2368/ghost/api/content
+    runtimeDetails:
+      runtime: local
