@@ -1,0 +1,84 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"members\":[{\"email\":\"test-events-1746057600@example.com\",\"name\":\"Test Events Member\"}]}",
+    "ResponseBody": "{\"members\":[{\"id\":\"70c3e3bdc9059e34f5d3c169\",\"email\":\"test-events-1746057600@example.com\",\"name\":\"Test Events Member\",\"uuid\":\"def-1746057600\",\"note\":null,\"subscribed\":false,\"created_at\":\"2026-05-01T00:00:00.000Z\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/members",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-05-01T22:08:10.855Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"events\":[],\"meta\":{\"pagination\":{\"limit\":5,\"total\":0,\"pages\":0,\"page\":null,\"next\":null,\"prev\":null}}}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/members/events",
+    "QueryParams": {
+      "limit": [
+        "5"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-05-01T22:08:10.855Z",
+    "Scheme": "http"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/members/70c3e3bdc9059e34f5d3c169",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-05-01T22:08:10.855Z",
+    "Scheme": "http"
+  }
+]
