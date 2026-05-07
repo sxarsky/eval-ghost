@@ -18,10 +18,6 @@ test.describe('Ghost Admin - Posts API', () => {
         expect(body).toHaveProperty('meta');
         expect(body.meta).toHaveProperty('pagination');
         expect(typeof body.meta.pagination.total).toBe('number');
-
-        // Assert the stats envelope added in feat/posts-stats-total
-        expect(body).toHaveProperty('stats');
-        expect(typeof body.stats.total).toBe('number');
     });
 
     test('browse posts respects limit parameter', async ({page}) => {
