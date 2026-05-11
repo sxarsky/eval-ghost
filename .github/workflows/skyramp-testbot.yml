@@ -45,7 +45,7 @@ jobs:
           anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
           githubToken: ${{ steps.app-token.outputs.token }}
           targetSetupCommand: >-
-            docker compose -f docker-compose.eval.yml run --rm ghost-builder &&
-            docker compose -f docker-compose.eval.yml up -d --wait ghost
-          targetTeardownCommand: 'docker compose -f docker-compose.eval.yml down -v'
+            docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval run --rm ghost-builder &&
+            docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval up -d --wait --wait-timeout 300 ghost
+          targetTeardownCommand: 'docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval down -v'
           authTokenCommand: 'bash $GITHUB_WORKSPACE/get-auth-token.sh'
