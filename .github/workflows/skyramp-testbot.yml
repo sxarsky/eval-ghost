@@ -39,8 +39,10 @@ jobs:
 
       - uses: skyramp/testbot@ad482bb135143d3ef9ff45323e25e82ae4af4031 # v0.9.1
         with:
+          skyrampMcpVersion: 0.1.6
           skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
           anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
           githubToken: ${{ steps.app-token.outputs.token }}
           targetSetupCommand: 'docker compose -f docker-compose.eval.yml up -d --build'
           targetTeardownCommand: 'docker compose -f docker-compose.eval.yml down -v'
+          authTokenCommand: 'bash $GITHUB_WORKSPACE/get-auth-token.sh'
