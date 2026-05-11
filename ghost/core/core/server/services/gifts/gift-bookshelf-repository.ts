@@ -1,6 +1,6 @@
 import errors from '@tryghost/errors';
 import {Gift, type GiftCadence, type GiftStatus} from './gift';
-import type {GiftRepository, RepositoryTransactionOptions} from './gift-repository';
+import type {FindPendingReminderOptions, GiftRepository, RepositoryTransactionOptions} from './gift-repository';
 
 type BookshelfDocument<T> = {
     save(data: Partial<T>, options?: unknown): Promise<unknown>;
@@ -40,6 +40,7 @@ type GiftRow = {
     consumed_at: Date | null;
     expired_at: Date | null;
     refunded_at: Date | null;
+    consumes_soon_reminder_sent_at: Date | null;
 };
 
 type GiftBookshelfModel = BookshelfModel<GiftRow>;
@@ -59,6 +60,14 @@ export class GiftBookshelfRepository implements GiftRepository {
         return !!existing;
     }
 
+    async getById(id: string, options: RepositoryTransactionOptions = {}): Promise<Gift | null> {
+        const model = await this.model.findOne({
+            id
+        }, {require: false, ...options});
+
+        return model ? this.toGift(model) : null;
+    }
+
     async getByToken(token: string, options: RepositoryTransactionOptions = {}): Promise<Gift | null> {
         const model = await this.model.findOne({
             token
@@ -73,6 +82,38 @@ export class GiftBookshelfRepository implements GiftRepository {
         }, {require: false});
 
         return model ? this.toGift(model) : null;
+    }
+
+    async getActiveByMember(memberId: string, options: RepositoryTransactionOptions = {}): Promise<Gift | null> {
+        const model = await this.model.findOne({
+            redeemer_member_id: memberId,
+            status: 'redeemed'
+        }, {require: false, ...options});
+
+        return model ? this.toGift(model) : null;
+    }
+
+    async getActiveByMembers(memberIds: string[], options: RepositoryTransactionOptions = {}): Promise<Map<string, Gift>> {
+        const map = new Map<string, Gift>();
+
+        if (memberIds.length === 0) {
+            return map;
+        }
+
+        const idList = memberIds.map(id => `'${id}'`).join(',');
+        const collection = await this.model.findAll({
+            filter: `redeemer_member_id:[${idList}]+status:redeemed`,
+            ...options
+        });
+
+        for (const model of collection.models) {
+            const gift = this.toGift(model);
+            if (gift.redeemerMemberId) {
+                map.set(gift.redeemerMemberId, gift);
+            }
+        }
+
+        return map;
     }
 
     async findPendingConsumption(): Promise<Gift[]> {
@@ -90,6 +131,18 @@ export class GiftBookshelfRepository implements GiftRepository {
 
         const collection = await this.model.findAll({
             filter: `status:purchased+expires_at:<'${now.toISOString()}'`
+        });
+
+        return collection.models.map(model => this.toGift(model));
+    }
+
+    async findPendingReminder({now, reminderLeadMs, reminderFloorMs, transacting}: FindPendingReminderOptions): Promise<Gift[]> {
+        const upper = new Date(now.getTime() + reminderLeadMs).toISOString();
+        const lower = new Date(now.getTime() + reminderFloorMs).toISOString();
+
+        const collection = await this.model.findAll({
+            filter: `status:redeemed+consumes_at:<='${upper}'+consumes_at:>'${lower}'+consumes_soon_reminder_sent_at:null`,
+            transacting
         });
 
         return collection.models.map(model => this.toGift(model));
@@ -140,7 +193,8 @@ export class GiftBookshelfRepository implements GiftRepository {
             redeemed_at: gift.redeemedAt,
             consumed_at: gift.consumedAt,
             expired_at: gift.expiredAt,
-            refunded_at: gift.refundedAt
+            refunded_at: gift.refundedAt,
+            consumes_soon_reminder_sent_at: gift.consumesSoonReminderSentAt
         };
     }
 
@@ -166,7 +220,8 @@ export class GiftBookshelfRepository implements GiftRepository {
             redeemedAt: json.redeemed_at,
             consumedAt: json.consumed_at,
             expiredAt: json.expired_at,
-            refundedAt: json.refunded_at
+            refundedAt: json.refunded_at,
+            consumesSoonReminderSentAt: json.consumes_soon_reminder_sent_at ?? null
         });
     }
 }

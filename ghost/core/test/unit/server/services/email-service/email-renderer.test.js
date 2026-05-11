@@ -850,6 +850,27 @@ describe('Email renderer', function () {
             assert.equal(result, 'Your subscription will expire on 13 March 2050.');
         });
 
+        it('Returns for a gift member', function () {
+            const member = {
+                id: '456',
+                uuid: 'myuuid',
+                name: 'Test User',
+                email: 'test@example.com',
+                createdAt: new Date(2023, 2, 13, 12, 0),
+                status: 'gift',
+                subscriptions: [],
+                tiers: [
+                    {
+                        name: 'Silver',
+                        expiry_at: new Date(2050, 2, 13, 12, 0)
+                    }
+                ]
+            };
+
+            const result = emailRenderer.getMemberStatusText(member);
+            assert.equal(result, 'Your subscription will expire on 13 March 2050.');
+        });
+
         it('Returns for a paid member without subscriptions', function () {
             const member = {
                 id: '456',
@@ -1349,7 +1370,8 @@ describe('Email renderer', function () {
                         return labsEnabled;
                     }
                 },
-                t: t
+                t: t,
+                dir: i18n.dir.bind(i18n)
             });
         });
 
@@ -1373,6 +1395,26 @@ describe('Email renderer', function () {
                 options
             );
         });
+
+        it('Renders LTR <html> attributes by default', async function () {
+            const post = createModel(basePost);
+            const newsletter = createModel(baseNewsletter);
+            const response = await emailRenderer.renderBody(post, newsletter, null, {});
+            assert.match(response.html, /<html lang="en-gb" dir="ltr">/);
+            assert.match(response.html, /direction:\s*ltr/);
+        });
+
+        for (const locale of ['fa', 'ar', 'he', 'ur']) {
+            it(`Renders RTL <html> attributes for ${locale}`, async function () {
+                customSettings.locale = locale;
+                const post = createModel(basePost);
+                const newsletter = createModel(baseNewsletter);
+                const response = await emailRenderer.renderBody(post, newsletter, null, {});
+                assert.match(response.html, new RegExp(`<html lang="${locale}" dir="rtl">`), `expected rtl <html> for ${locale}`);
+                assert.match(response.html, /direction:\s*rtl/, `expected direction: rtl in body for ${locale}`);
+                assert.match(response.html, /class="feedback-buttons-container" dir="rtl"/, `expected feedback buttons dir="rtl" for ${locale}`);
+            });
+        }
 
         it('preserves multiline code block whitespace in the shared email wrapper', async function () {
             renderedPost = '<pre><code>const firstLine = 1;\nconst secondLine = 2;</code></pre>';
@@ -1439,34 +1481,44 @@ describe('Email renderer', function () {
             assert(response.html.includes('http://feedback-link.com/?score=0'));
         });
 
-        it('includes share links for public posts', async function () {
-            const post = createModel(basePost);
-            const newsletter = createModel({
-                header_image: null,
-                name: 'Test Newsletter',
-                show_badge: false,
-                feedback_enabled: true,
-                show_share_button: true,
-                show_post_title_section: true
+        for (const visibility of ['public', 'members', 'paid', 'tiers']) {
+            it(`includes share links for posts with ${visibility} visibility`, async function () {
+                const newsletter = createModel({
+                    header_image: null,
+                    name: 'Test Newsletter',
+                    show_badge: false,
+                    feedback_enabled: true,
+                    show_share_button: true,
+                    show_post_title_section: true
+                });
+                const post = createModel({
+                    ...basePost,
+                    visibility
+                });
+                const segment = null;
+                const options = {};
+
+                const response = await emailRenderer.renderBody(
+                    post,
+                    newsletter,
+                    segment,
+                    options
+                );
+
+                assert(response.html.includes('href="http://example.com/#/share"'), `Expected share link for "${visibility}" visibility`);
+                assert(response.html.includes('>Share</p>'), `Expected share button text for "${visibility}" visibility`);
             });
-            const segment = null;
-            const options = {};
+        }
 
-            const response = await emailRenderer.renderBody(
-                post,
-                newsletter,
-                segment,
-                options
-            );
-
-            assert(response.html.includes('href="http://example.com/#/share"'));
-            assert(response.html.includes('>Share</p>'));
-        });
-
-        it('does not include share links for non-public posts', async function () {
+        it('does not include share links for email-only posts', async function () {
             const post = createModel({
                 ...basePost,
-                visibility: 'members'
+                posts_meta: createModel({
+                    feature_image_alt: null,
+                    feature_image_caption: null,
+                    email_only: true
+                }),
+                loaded: ['posts_meta']
             });
             const newsletter = createModel({
                 header_image: null,
@@ -2393,7 +2445,8 @@ describe('Email renderer', function () {
                         ]
                     })
                 },
-                t: t
+                t: t,
+                dir: i18n.dir.bind(i18n)
             });
         });
 
@@ -2416,6 +2469,21 @@ describe('Email renderer', function () {
             const data = await templateDataWithSettings({});
             assert.equal(data.accentColor, '#15212A');
             assert.equal(data.accentContrastColor, '#FFFFFF');
+        });
+
+        it('Exposes site.locale and site.direction (LTR by default)', async function () {
+            const data = await templateDataWithSettings({});
+            assert.equal(data.site.locale, 'en-gb');
+            assert.equal(data.site.direction, 'ltr');
+        });
+
+        it('Sets site.direction to rtl for Persian, Arabic, Hebrew, and Urdu', async function () {
+            for (const locale of ['fa', 'ar', 'he', 'ur']) {
+                settings.locale = locale;
+                const data = await templateDataWithSettings({});
+                assert.equal(data.site.locale, locale, `expected locale ${locale}`);
+                assert.equal(data.site.direction, 'rtl', `expected rtl for ${locale}`);
+            }
         });
 
         it('Includes list of cta background colors', async function () {
@@ -2585,18 +2653,21 @@ describe('Email renderer', function () {
             assert.equal(data.post.publishedAt, '1 Jan 1970');
         });
 
-        it('includes share URL for public posts', async function () {
+        it('includes share URL for posts with public, members, paid, and tiers visibility', async function () {
             const html = '';
-            const post = createModel({
-                posts_meta: createModel({}),
-                loaded: ['posts_meta'],
-                visibility: 'public'
-            });
             const newsletter = createModel({
                 show_share_button: true
             });
-            const data = await emailRenderer.getTemplateData({post, newsletter, html, addPaywall: false});
-            assert.equal(data.post.shareUrl, 'http://example.com/#/share');
+
+            for (const visibility of ['public', 'members', 'paid', 'tiers']) {
+                const post = createModel({
+                    posts_meta: createModel({}),
+                    loaded: ['posts_meta'],
+                    visibility
+                });
+                const data = await emailRenderer.getTemplateData({post, newsletter, html, addPaywall: false});
+                assert.equal(data.post.shareUrl, 'http://example.com/#/share', `Expected share URL for "${visibility}" visibility`);
+            }
         });
 
         it('calculates footer feedback button widths based on visible actions', async function () {
@@ -2632,21 +2703,19 @@ describe('Email renderer', function () {
             assert.equal(data.post.shareUrl, null);
         });
 
-        it('does not include share URL for non-public posts', async function () {
+        it('does not include share URL for email-only posts', async function () {
             const html = '';
+            const post = createModel({
+                posts_meta: createModel({email_only: true}),
+                loaded: ['posts_meta'],
+                visibility: 'members'
+            });
             const newsletter = createModel({
                 show_share_button: true
             });
 
-            for (const visibility of ['members', 'paid', 'tiers']) {
-                const post = createModel({
-                    posts_meta: createModel({}),
-                    loaded: ['posts_meta'],
-                    visibility
-                });
-                const data = await emailRenderer.getTemplateData({post, newsletter, html, addPaywall: false});
-                assert.equal(data.post.shareUrl, null, `Expected no share URL for "${visibility}" visibility`);
-            }
+            const data = await emailRenderer.getTemplateData({post, newsletter, html, addPaywall: false});
+            assert.equal(data.post.shareUrl, null);
         });
 
         it('show feature image if post has feature image', async function () {
@@ -3570,7 +3639,8 @@ describe('Email renderer', function () {
                         return labsEnabled;
                     }
                 },
-                t: tFr
+                t: tFr,
+                dir: i18n.dir.bind(i18n)
             });
         });
         it('correctly include the site name in the paywall (in French)', async function () {

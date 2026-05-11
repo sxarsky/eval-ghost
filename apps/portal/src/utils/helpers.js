@@ -71,6 +71,10 @@ export function isPaidMember({member = {}}) {
     return (member && member.paid);
 }
 
+export function isGiftMember({member = {}}) {
+    return member?.status === 'gift';
+}
+
 export function getProductCurrency({product}) {
     if (!product?.monthlyPrice) {
         return null;
@@ -99,6 +103,18 @@ export function getSubscriptionExpiry({member}) {
         return getDateString(subscription.tier.expiry_at);
     }
     return '';
+}
+
+export function isArchivedTier({member, site}) {
+    const subscription = getMemberSubscription({member});
+    const tierId = subscription?.tier?.id;
+
+    if (!tierId) {
+        return false;
+    }
+
+    // Archived tiers are filtered out of site.products
+    return !getProductFromId({site, productId: tierId});
 }
 
 export function getUpgradeProducts({site, member}) {

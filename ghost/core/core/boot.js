@@ -16,11 +16,20 @@ const debug = require('@tryghost/debug')('boot');
  * Helper class to create consistent log messages
  */
 class BootLogger {
+    /**
+     * @param {{info: (message: string) => unknown}} logging
+     * @param {{metric: (name: string, time: number) => unknown}} metrics
+     * @param {number} startTime
+     */
     constructor(logging, metrics, startTime) {
         this.logging = logging;
         this.metrics = metrics;
         this.startTime = startTime;
     }
+    /**
+     * @param {string} message
+     * @returns {void}
+     */
     log(message) {
         let {logging, startTime} = this;
         logging.info(`Ghost ${message} in ${(Date.now() - startTime) / 1000}s`);
@@ -28,6 +37,7 @@ class BootLogger {
     /**
      * @param {string} name
      * @param {number} [initialTime]
+     * @returns {void}
      */
     metric(name, initialTime) {
         let {metrics, startTime} = this;
@@ -87,12 +97,6 @@ async function initCore({ghostServer, config, frontend}) {
     debug('Begin: Load urlUtils');
     require('./shared/url-utils');
     debug('End: Load urlUtils');
-
-    // Models are the heart of Ghost - this is a syncronous operation
-    debug('Begin: models');
-    const models = require('./server/models');
-    models.init();
-    debug('End: models');
 
     // Limit service is booted before settings, so that limits are available for calculated settings
     debug('Begin: limits');
@@ -161,7 +165,7 @@ async function initCore({ghostServer, config, frontend}) {
 /**
  * These are services required by Ghost's frontend.
  * @param {object} options
- * @param {object} options.bootLogger
+ * @param {BootLogger} options.bootLogger
 
  */
 async function initServicesForFrontend({bootLogger}) {
@@ -244,7 +248,10 @@ async function initExpressApps({frontend, backend, config}) {
 
     if (frontend) {
         // SITE + MEMBERS
-        const urlService = require('./server/services/url');
+        // RouterManager and migrated frontend callers expect the facade
+        // (getUrlForResource / ownsResource), not the raw eager UrlService
+        // (which only exposes the legacy id-based methods).
+        const urlService = require('./server/services/url').facade;
         const frontendApp = require('./server/web/parent/frontend')({urlService});
         parentApp.use(vhost(config.getFrontendMountPath(), frontendApp));
     }
@@ -318,7 +325,7 @@ async function initServices() {
     const indexnow = require('./server/services/indexnow');
     const slack = require('./server/services/slack');
     const webhooks = require('./server/services/webhooks');
-    const scheduling = require('./server/adapters/scheduling');
+    const postScheduling = require('./server/services/post-scheduling');
     const comments = require('./server/services/comments');
     const staffService = require('./server/services/staff');
     const memberAttribution = require('./server/services/member-attribution');
@@ -339,15 +346,23 @@ async function initServices() {
     const emailAddressService = require('./server/services/email-address');
     const statsService = require('./server/services/stats');
     const explorePingService = require('./server/services/explore-ping');
+    const domainEvents = require('@tryghost/domain-events');
+    const AutomationsService = require('./server/services/automations');
 
+    const {
+        createAdapter: createSchedulerAdapter,
+        getSchedulerIntegration
+    } = require('./server/adapters/scheduling/utils');
     const urlUtils = require('./shared/url-utils');
 
-    // NOTE: Members service depends on these
-    //       so they are initialized before it.
-    await stripe.init();
-
-    // NOTE: newsletter service and email service depend on email address service
-    await emailAddressService.init(),
+    // Initialize things that other services depend on first.
+    emailAddressService.init();
+    const apiUrl = urlUtils.urlFor('api', {type: 'admin'}, true);
+    const schedulerAdapter = createSchedulerAdapter();
+    const [schedulerIntegration] = await Promise.all([
+        getSchedulerIntegration(),
+        stripe.init()
+    ]);
 
     await Promise.all([
         identityTokens.init(),
@@ -366,8 +381,10 @@ async function initServices() {
         emailService.init(),
         emailAnalytics.init(),
         webhooks.listen(),
-        scheduling.init({
-            apiUrl: urlUtils.urlFor('api', {type: 'admin'}, true)
+        postScheduling.init({
+            apiUrl,
+            adapter: schedulerAdapter,
+            integration: schedulerIntegration
         }),
         comments.init(),
         linkTracking.init(),
@@ -378,7 +395,17 @@ async function initServices() {
         recommendationsService.init(),
         statsService.init(),
         explorePingService.init(),
-        giftService.init()
+        giftService.init({
+            apiUrl,
+            schedulerAdapter,
+            schedulerIntegration
+        }),
+        new AutomationsService().init({
+            domainEvents,
+            apiUrl,
+            schedulerAdapter,
+            schedulerIntegration
+        })
     ]);
 
     debug('End: Services');
@@ -423,10 +450,6 @@ async function initBackgroundServices({config}) {
     // TODO(NY-1220): The outbox is deprecated and will soon be removed.
     const outboxService = require('./server/services/outbox');
     outboxService.init();
-
-    const domainEvents = require('@tryghost/domain-events');
-    const WelcomeEmailAutomationsService = require('./server/services/welcome-email-automations');
-    new WelcomeEmailAutomationsService().init(domainEvents);
 
     debug('End: initBackgroundServices');
 }

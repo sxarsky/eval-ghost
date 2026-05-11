@@ -18,6 +18,8 @@ import {
     isActiveOffer,
     isRetentionOffer,
     isInviteOnly,
+    isArchivedTier,
+    isGiftMember,
     isPaidMember,
     isPaidMembersOnly,
     isSameCurrency,
@@ -77,6 +79,38 @@ describe('Helpers - ', () => {
 
         test('returns false for free member', () => {
             const value = isPaidMember({member: FixtureMember.free});
+            expect(value).toBe(false);
+        });
+    });
+
+    describe('isGiftMember -', () => {
+        test('returns true when member status is "gift"', () => {
+            const value = isGiftMember({member: {status: 'gift'}});
+            expect(value).toBe(true);
+        });
+
+        test('returns false for free member', () => {
+            const value = isGiftMember({member: FixtureMember.free});
+            expect(value).toBe(false);
+        });
+
+        test('returns false for paid member', () => {
+            const value = isGiftMember({member: FixtureMember.paid});
+            expect(value).toBe(false);
+        });
+
+        test('returns false for complimentary member', () => {
+            const value = isGiftMember({member: FixtureMember.complimentary});
+            expect(value).toBe(false);
+        });
+
+        test('returns false when member is null', () => {
+            const value = isGiftMember({member: null});
+            expect(value).toBe(false);
+        });
+
+        test('returns false when member arg is omitted', () => {
+            const value = isGiftMember({});
             expect(value).toBe(false);
         });
     });
@@ -724,6 +758,37 @@ describe('Helpers - ', () => {
             delete member.subscriptions[0].tier.expiry_at;
 
             expect(getSubscriptionExpiry({member})).toEqual('');
+        });
+    });
+
+    describe('isArchivedTier', () => {
+        const site = FixturesSite.singleTier.basic;
+        const activeTierId = site.products.find(p => p.type === 'paid').id;
+
+        const buildMemberWithTierId = tierId => ({
+            paid: true,
+            status: 'gift',
+            subscriptions: [
+                {
+                    status: 'active',
+                    price: {amount: 0},
+                    tier: tierId === undefined ? {} : {id: tierId}
+                }
+            ]
+        });
+
+        test('returns false when the member has no subscription', () => {
+            expect(isArchivedTier({member: FixtureMember.free, site})).toBe(false);
+        });
+
+        test('returns false when the subscription tier id is in site.products', () => {
+            const member = buildMemberWithTierId(activeTierId);
+            expect(isArchivedTier({member, site})).toBe(false);
+        });
+
+        test('returns true when the subscription tier id is not in site.products', () => {
+            const member = buildMemberWithTierId('archived_tier_id');
+            expect(isArchivedTier({member, site})).toBe(true);
         });
     });
 

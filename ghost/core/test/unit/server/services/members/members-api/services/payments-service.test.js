@@ -303,14 +303,17 @@ describe('PaymentsService', function () {
 
     describe('getGiftPaymentLink', function () {
         let createGiftCheckoutSessionStub;
+        let generateTokenStub;
         let service;
 
         beforeEach(function () {
             createGiftCheckoutSessionStub = sinon.fake.resolves({
                 url: 'https://checkout.stripe.com/gift-session'
             });
+            generateTokenStub = sinon.stub().returns('AbCdEfGhIjKl');
             service = new PaymentsService({
-                stripeAPIService: {createGiftCheckoutSession: createGiftCheckoutSessionStub}
+                stripeAPIService: {createGiftCheckoutSession: createGiftCheckoutSessionStub},
+                giftService: {service: {generateToken: generateTokenStub}}
             });
         });
 
@@ -361,10 +364,11 @@ describe('PaymentsService', function () {
             assert.equal(args.metadata.duration, '1');
             assert.equal(args.metadata.buyer_email, undefined, 'buyer_email should not be in metadata');
             assert.equal(args.metadata.requestSrc, 'portal');
-            assert.match(args.metadata.gift_token, /^[A-Za-z0-9_-]{8}$/);
+            sinon.assert.calledOnce(generateTokenStub);
+            assert.equal(args.metadata.gift_token, 'AbCdEfGhIjKl');
         });
 
-        it('appends gift token to success URL', async function () {
+        it('appends gift token, tier and cadence to success URL', async function () {
             const tier = await createTier({monthlyPrice: 5000, yearlyPrice: 50000});
 
             await service.getGiftPaymentLink({...defaultGiftOptions, tier, cadence: 'year'});
@@ -374,6 +378,8 @@ describe('PaymentsService', function () {
 
             assert.equal(successUrl.searchParams.get('stripe'), 'gift-purchase-success');
             assert.equal(successUrl.searchParams.get('gift_token'), args.metadata.gift_token);
+            assert.equal(successUrl.searchParams.get('gift_tier'), tier.id.toHexString());
+            assert.equal(successUrl.searchParams.get('gift_cadence'), 'year');
         });
 
         it('prevents caller metadata from overwriting gift-specific keys', async function () {
