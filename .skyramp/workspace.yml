@@ -1,0 +1,34 @@
+# Skyramp Workspace Configuration
+workspace:
+  repoName: mrugeshmaster/ghost-testb
+  repoUrl: git@github.com:mrugeshmaster/ghost-testb.git
+metadata:
+  schemaVersion: v1
+  mcpVersion: 1.0.0
+  executorVersion: v1.0.0
+services:
+  - serviceName: ghost
+    language: typescript
+    framework: playwright
+    testDirectory: e2e/tests
+    api:
+      authType: bearer
+      authHeader: Authorization
+      authScheme: Ghost
+      baseUrl: http://localhost:2368/ghost/api/admin
+    runtimeDetails:
+      serverStartCommand: docker compose -f compose.dev.yaml up -d ghost-dev
+      runtime: docker
+      dockerNetwork: ghost_dev
+  - serviceName: ghost-content
+    language: typescript
+    framework: playwright
+    testDirectory: e2e/tests
+    api:
+      authType: none
+      authHeader: ""
+      baseUrl: http://localhost:2368/ghost/api/content
+    runtimeDetails:
+      serverStartCommand: docker compose -f compose.dev.yaml up -d ghost-dev
+      runtime: docker
+      dockerNetwork: ghost_dev
