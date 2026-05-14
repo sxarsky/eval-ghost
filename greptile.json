@@ -1,0 +1,5 @@
+{
+  "commentTypes": ["logic", "syntax", "info", "advice", "checks"],
+  "strictness": "moderate",
+  "ignorePatterns": [".github/**", "docs/**"]
+}
