@@ -91,7 +91,7 @@ function buildCommand(workspace, files) {
 }
 
 module.exports = {
-    '*.{js,ts,tsx,jsx,cjs}': (files) => {
+    '*.{js,tsx,jsx,cjs}': (files) => {
         const groups = new Map();
         for (const file of files) {
             const workspace = findWorkspace(file);
