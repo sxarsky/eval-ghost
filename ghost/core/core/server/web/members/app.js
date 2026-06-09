@@ -131,12 +131,12 @@ module.exports = function setupMembersApp() {
 
     // Gifts
     membersApp.get(
-        '/api/gifts/:token/redeem',
+        '/api/gifts/:token/claim',
         middleware.loadMemberSession,
         http(api.giftsMembers.getRedeemable)
     );
     membersApp.post(
-        '/api/gifts/:token/redeem',
+        '/api/gifts/:token/claim',
         bodyParser.json({limit: '50mb'}),
         middleware.loadMemberSession,
         http(api.giftsMembers.redeem)
