@@ -102,13 +102,13 @@ jobs:
           fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
 
-      - uses: skyramp/testbot@v0.10.2
+      - uses: skyramp/testbot@87752cf8ab396b6aa73c47069e79834bd1c75eda # v0.11.5
         with:
           skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
           anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
           githubToken: ${{ steps.app-token.outputs.token }}
-          skyrampMcpVersion: 0.2.1-rc.1
-          skyrampExecutorVersion: v1.3.24
+          skyrampMcpVersion: 0.3.2
+          skyrampExecutorVersion: v1.3.37
 
           targetSetupCommand: >-
             docker compose -f docker-compose.eval.yml run --rm ghost-builder &&
