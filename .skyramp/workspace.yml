@@ -11,8 +11,8 @@ workspace:
   repoUrl: git@github.com:sxarsky/eval-ghost.git
 metadata:
   schemaVersion: v1
-  mcpVersion: 1.0.0
-  executorVersion: v1.0.0
+  mcpVersion: 0.3.2
+  executorVersion: v1.3.37
 services:
   - serviceName: ghost
     language: typescript
