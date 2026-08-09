@@ -1,12 +1,10 @@
 services:
   # Build step: install deps, build assets, and produce the pack:standalone output.
-  # Mirrors Ghost's ci.yml job_build_artifacts steps.
+  # Mirrors ghost-testb's ci.yml job_build_artifacts steps.
   # Output: ghost/core/package/ — used as the docker build context for the ghost service.
   ghost-builder:
     image: node:22.18.0-bookworm-slim
     working_dir: /workspace
-    environment:
-      NX_SKIP_NX_CACHE: "true"
     volumes:
       - .:/workspace
       - pnpm-store:/root/.local/share/pnpm/store
@@ -14,15 +12,14 @@ services:
       bash -c "
         apt-get update -qq && apt-get install -y -qq --no-install-recommends git && rm -rf /var/lib/apt/lists/* &&
         git config --global --add safe.directory /workspace &&
-        git -C /workspace submodule update --init --depth 1 ghost/core/content/themes/casper ghost/core/content/themes/source &&
-        chmod -R u+rwx /workspace/ghost/core/core/built/admin 2>/dev/null || true &&
-        rm -rf /workspace/ghost/core/core/built/admin &&
         corepack enable &&
         pnpm install --frozen-lockfile --prefer-offline &&
         sed -i 's/\"include\":.*/\"include\": [\"src\"]/' apps/posts/tsconfig.json &&
-        pnpm build:production &&
-        pnpm archive &&
-        chmod -R a+r /workspace/ghost/core/package
+        find . -name tsconfig.tsbuildinfo -not -path '*/node_modules/*' -delete &&
+        NX_SKIP_NX_CACHE=true pnpm build:production &&
+        chmod -R a+rX ghost/core/core/built &&
+        PNPM_PACKAGE_IMPORT_METHOD=copy pnpm --filter ghost archive &&
+        chown -R $(stat -c '%u:%g' /workspace) ghost/core/package
       "
 
   # Ghost runtime: built from the pack:standalone output via Dockerfile.production.
@@ -53,7 +50,7 @@ services:
     # running the Ghost process with unnecessary root privileges.
     user: root
     command: >
-      sh -c "chmod -R a+r /home/ghost/core/built/admin/ && exec setpriv --reuid=ghost --regid=ghost --init-groups node index.js"
+      sh -c "chmod -R a+r /home/ghost/core/built/admin/ && exec setpriv --reuid=ghost --regid=ghost --init-groups node index.js 2>&1"
     volumes:
       - ghost-content:/home/ghost/content
     healthcheck:
