@@ -116,7 +116,7 @@ jobs:
             docker compose -f docker-compose.eval.yml up ghost --build -d
           targetReadyCheckCommand: >-
             bash -c 'status=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:2368/ghost/api/admin/site/); [[ "$status" == "200" || "$status" == "401" ]]'
-          targetReadyCheckTimeout: 180
+          targetReadyCheckTimeout: 1200
           authTokenCommand: 'bash get-auth-token.sh'
 
           testDirectory: 'tests/backend'
