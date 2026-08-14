@@ -161,6 +161,7 @@ module.exports = function apiRoutes() {
     // ## Stats
     router.get('/stats/member_count', mw.authAdminApi, http(api.stats.memberCountHistory));
     router.get('/stats/mrr', mw.authAdminApi, http(api.stats.mrr));
+    router.get('/stats/mrr-by-tier', mw.authAdminApi, http(api.stats.mrrByTier));
     router.get('/stats/subscriptions', mw.authAdminApi, http(api.stats.subscriptions));
     router.get('/stats/referrers', mw.authAdminApi, http(api.stats.referrersHistory));
     router.get('/stats/posts/:id/stats', mw.authAdminApi, http(api.stats.postStats));
