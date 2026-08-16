@@ -1,10 +1,12 @@
 /* eslint-disable ghost/ghost-custom/max-api-complexity */
 const path = require('path');
 const errors = require('@tryghost/errors');
+const logging = require('@tryghost/logging');
 const imageTransform = require('@tryghost/image-transform');
 
 const storage = require('../../adapters/storage');
 const config = require('../../../shared/config');
+const {generateThumbnail} = require('../../lib/image/thumbnail');
 
 /** @type {import('@tryghost/api-framework').Controller} */
 const controller = {
@@ -73,6 +75,24 @@ const controller = {
                     path: originalPath,
                     name: imageTransform.generateOriginalImageName(processedImageName)
                 }, processedImageDir);
+
+                // Generate a small thumbnail for the admin media library grid.
+                // This is best-effort: a failure here must not fail the upload.
+                try {
+                    const thumbnailPath = `${originalPath}_thumb`;
+                    await generateThumbnail(originalPath, thumbnailPath, {
+                        timeout: imageOptimizationOptions.timeout
+                    });
+
+                    const parsedName = path.parse(processedImageName);
+                    await store.save({
+                        ...frame.file,
+                        path: thumbnailPath,
+                        name: `${parsedName.name}_thumb${parsedName.ext}`
+                    }, processedImageDir);
+                } catch (err) {
+                    logging.warn('Media library thumbnail generation failed', err);
+                }
 
                 return processedImageUrl;
             }
