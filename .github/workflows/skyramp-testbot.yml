@@ -25,7 +25,7 @@ jobs:
         with:
           fetch-depth: 0
           submodules: recursive
-      - uses: letsramp/testbot@b4f2eeaf2d16d9e0f390f28e9e8273799a7a4f80 # v0.11.7
+      - uses: skyramp/testbot@15b35b4f7fc705aa12e96bb0aa65e238738ccdb7 # v0.11.7
         with:
           skyrampMcpVersion: "0.3.3"
           skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
