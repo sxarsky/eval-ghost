@@ -12,7 +12,6 @@ concurrency:
 
 jobs:
   testbot:
-    # Only run for pull_request events or issue_comment on PRs mentioning @skyramp-testbot
     if: >-
       github.event_name == 'pull_request' ||
       (github.event_name == 'issue_comment' && github.event.issue.pull_request && contains(github.event.comment.body, '@skyramp-testbot') && github.event.comment.user.login != 'skyramp-testbot[bot]')
@@ -21,31 +20,19 @@ jobs:
       contents: write
       pull-requests: write
       checks: write
-
     steps:
-      # Generate a GitHub App installation token to retrigger CI workflows on push
-      # https://docs.github.com/en/apps/creating-github-apps/authenticating-with-a-github-app/making-authenticated-api-requests-with-a-github-app-in-a-github-actions-workflow
-      - name: Generate GitHub App Token
-        id: app-token
-        uses: actions/create-github-app-token@d72941d797fd3113feb6b93fd0dec494b13a2547 # v1
-        with:
-          app-id: ${{ secrets.SKYRAMP_TESTBOT_APP_ID }}
-          private-key: ${{ secrets.SKYRAMP_TESTBOT_APP_PRIVATE_KEY }}
-
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           fetch-depth: 0
-          token: ${{ steps.app-token.outputs.token }}
           submodules: recursive
-
-      - uses: skyramp/testbot@ad482bb135143d3ef9ff45323e25e82ae4af4031 # v0.9.1
+      - uses: letsramp/testbot@b4f2eeaf2d16d9e0f390f28e9e8273799a7a4f80 # v0.11.7
         with:
-          skyrampMcpVersion: 0.1.6
+          skyrampMcpVersion: "0.3.3"
           skyrampLicenseFile: ${{ secrets.SKYRAMP_LICENSE_FILE }}
           anthropicApiKey: ${{ secrets.SKYRAMP_TESTBOT_API_KEY }}
-          githubToken: ${{ steps.app-token.outputs.token }}
+          githubAppId: ${{ secrets.SKYRAMP_TESTBOT_APP_ID }}
+          githubAppPrivateKey: ${{ secrets.SKYRAMP_TESTBOT_APP_PRIVATE_KEY }}
           targetSetupCommand: >-
-            docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval run --rm ghost-builder &&
-            docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval up -d --wait --wait-timeout 300 ghost
+            docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval run --rm ghost-builder && docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval up -d --wait --wait-timeout 300 ghost
           targetTeardownCommand: 'docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval down -v'
           authTokenCommand: 'bash $GITHUB_WORKSPACE/get-auth-token.sh'

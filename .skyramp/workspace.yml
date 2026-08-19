@@ -1,4 +1,11 @@
-# Skyramp Workspace Configuration
+# Skyramp Workspace Configuration for Ghost eval.
+# Copied into the cloned repo by eval-testbot.sh before the agent runs.
+# Ghost Admin API uses JWT auth: Authorization: Ghost <jwt>
+# get-auth-token.sh outputs "Ghost <jwt>" as SKYRAMP_TEST_TOKEN.
+# authType: default causes the executor to send: Authorization: Ghost <jwt>
+# Ghost Content API uses ?key=<key> query-param auth — headers are not supported.
+# ghost-content service is listed for endpoint discovery only; authType: none
+# prevents Skyramp from sending a bogus auth header to content API endpoints.
 workspace:
   repoName: mrugeshmaster/ghost-testb
   repoUrl: git@github.com:mrugeshmaster/ghost-testb.git
@@ -6,6 +13,8 @@ metadata:
   schemaVersion: v1
   mcpVersion: 1.0.0
   executorVersion: v1.0.0
+  createdAt: "2026-01-01T00:00:00Z"
+  updatedAt: "2026-01-01T00:00:00Z"
 services:
   - serviceName: ghost
     language: typescript
