@@ -37,7 +37,6 @@ export class SidebarPage extends AdminPage {
     public readonly postsToggle: Locator;
     public readonly userDropdownTrigger: Locator;
     public readonly nightShiftToggle: Locator;
-    public readonly whatsNewButton: Locator;
     public readonly userProfileLink: Locator;
     public readonly signOutLink: Locator;
     public readonly networkNotificationBadge: Locator;
@@ -52,7 +51,6 @@ export class SidebarPage extends AdminPage {
         this.postsToggle = this.sidebar.getByRole('button', {name: /toggle post views/i});
         this.userDropdownTrigger = page.locator('[data-test-nav="arrow-down"]');
         this.nightShiftToggle = page.getByRole('menuitem', {name: /dark mode/i}).getByRole('switch');
-        this.whatsNewButton = page.getByRole('menuitem', {name: /what's new/i});
         this.userProfileLink = page.getByRole('menuitem', {name: /your profile/i});
         this.signOutLink = page.getByRole('menuitem', {name: /sign out/i});
 
