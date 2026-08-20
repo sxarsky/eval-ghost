@@ -1,0 +1,49 @@
+<div class="publishing-flow-step publishing-flow-step--destinations">
+  <h2 class="publishing-flow-step__title">Where do you want to publish?</h2>
+
+  <div class="publishing-flow-destinations">
+    <label class="publishing-flow-destination">
+      <input
+        type="radio"
+        name="destination"
+        value="site"
+        checked={{eq @destination "site"}}
+        {{on "change" (fn @setDestination "site")}}
+      />
+      <span class="publishing-flow-destination__label">Site only</span>
+      <span class="publishing-flow-destination__desc">Publish to your site without sending an email</span>
+    </label>
+
+    <label class="publishing-flow-destination">
+      <input
+        type="radio"
+        name="destination"
+        value="email"
+        checked={{eq @destination "email"}}
+        {{on "change" (fn @setDestination "email")}}
+      />
+      <span class="publishing-flow-destination__label">Email only</span>
+      <span class="publishing-flow-destination__desc">Send as email newsletter without publishing to site</span>
+    </label>
+
+    <label class="publishing-flow-destination">
+      <input
+        type="radio"
+        name="destination"
+        value="both"
+        checked={{eq @destination "both"}}
+        {{on "change" (fn @setDestination "both")}}
+      />
+      <span class="publishing-flow-destination__label">Site &amp; email</span>
+      <span class="publishing-flow-destination__desc">Publish to site and send as email newsletter</span>
+    </label>
+  </div>
+
+  <div class="publishing-flow-step__actions">
+    <GhButton
+      @label="Next"
+      @class="gh-btn gh-btn-primary"
+      {{on "click" @goNext}}
+    />
+  </div>
+</div>

@@ -1,0 +1,31 @@
+{{#if (eq this.currentStep "destinations")}}
+  <PublishingFlow::StepDestinations
+    @destination={{this.destination}}
+    @setDestination={{this.setDestination}}
+    @goNext={{this.goNext}}
+  />
+{{else if (eq this.currentStep "schedule")}}
+  <PublishingFlow::StepSchedule
+    @scheduleDate={{this.scheduleDate}}
+    @scheduleDateError={{this.scheduleDateError}}
+    @setScheduleDate={{this.setScheduleDate}}
+    @goBack={{this.goBack}}
+    @goNext={{this.goNext}}
+  />
+{{else if (eq this.currentStep "newsletter")}}
+  <PublishingFlow::StepNewsletter
+    @newsletters={{@publishOptions.newsletters}}
+    @selectedNewsletter={{this.selectedNewsletter}}
+    @setNewsletter={{this.setNewsletter}}
+    @goBack={{this.goBack}}
+    @goNext={{this.goNext}}
+  />
+{{else if (eq this.currentStep "review")}}
+  <PublishingFlow::StepReview
+    @destination={{this.destination}}
+    @scheduleDate={{this.scheduleDate}}
+    @selectedNewsletter={{this.selectedNewsletter}}
+    @goBack={{this.goBack}}
+    @confirmPublish={{this.confirmPublish}}
+  />
+{{/if}}
