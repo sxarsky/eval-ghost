@@ -367,6 +367,41 @@ const controller = {
         }
     },
 
+    bulkTags: {
+        statusCode: 200,
+        headers: {
+            cacheInvalidate: false
+        },
+        options: [
+            'all',
+            'filter',
+            'search'
+        ],
+        data: [
+            'action',
+            'label'
+        ],
+        validation: {
+            data: {
+                action: {
+                    required: true,
+                    values: ['addLabel', 'removeLabel']
+                },
+                label: {
+                    required: true
+                }
+            }
+        },
+        permissions: {
+            method: 'edit'
+        },
+        async query(frame) {
+            const result = await membersService.api.members.bulkEdit(frame.data, frame.options);
+
+            return result;
+        }
+    },
+
     exportCSV: {
         options: [
             'limit',

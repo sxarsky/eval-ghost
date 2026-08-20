@@ -123,6 +123,7 @@ module.exports = function apiRoutes() {
     router.post('/members', mw.authAdminApi, http(api.members.add));
     router.delete('/members', mw.authAdminApi, http(api.members.bulkDestroy));
     router.put('/members/bulk', mw.authAdminApi, http(api.members.bulkEdit));
+    router.put('/members/bulk-tags', mw.authAdminApi, http(api.members.bulkTags));
 
     router.get('/offers', mw.authAdminApi, http(api.offers.browse));
     router.post('/offers', mw.authAdminApi, http(api.offers.add));
