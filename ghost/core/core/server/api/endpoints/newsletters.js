@@ -107,6 +107,27 @@ const controller = {
         }
     },
 
+    destroy: {
+        statusCode: 204,
+        headers: {
+            cacheInvalidate: true
+        },
+        options: [
+            'id'
+        ],
+        validation: {
+            options: {
+                id: {
+                    required: true
+                }
+            }
+        },
+        permissions: true,
+        async query(frame) {
+            return newslettersService.destroy(frame.options);
+        }
+    },
+
     verifyPropertyUpdate: {
         headers: {
             cacheInvalidate: false
