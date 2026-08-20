@@ -16,7 +16,13 @@ module.exports = function apiRoutes() {
     // ## Posts
     router.get('/posts', mw.authenticatePublic, http(api.postsPublic.browse));
     router.get('/posts/:id', mw.authenticatePublic, http(api.postsPublic.read));
-    router.get('/posts/slug/:slug', mw.authenticatePublic, http(api.postsPublic.read));
+    // New canonical slug path — replaces /posts/slug/:slug
+    router.get('/posts/by-slug/:slug', mw.authenticatePublic, http(api.postsPublic.read));
+    // 301 redirect for backward compat with old /posts/slug/:slug path
+    router.get('/posts/slug/:slug', mw.authenticatePublic, (req, res) => {
+        const target = req.url.replace('/posts/slug/', '/posts/by-slug/');
+        res.redirect(301, target);
+    });
 
     // ## Pages
     router.get('/pages', mw.authenticatePublic, http(api.pagesPublic.browse));
