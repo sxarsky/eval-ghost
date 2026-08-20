@@ -1,0 +1,89 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\": [{\"title\": \"Stats Test Published Post\", \"status\": \"published\"}]}",
+    "ResponseBody": "{\"posts\": [{\"id\": \"6749d5c4f78cdc2e5d5b1234\", \"title\": \"Stats Test Published Post\", \"status\": \"published\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:13:27.788Z",
+    "Scheme": "http",
+    "scenarioName": "site-stats-counts-verification",
+    "UniqueFields": [
+      "posts.0.title"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\": [{\"title\": \"Stats Test Draft Post\", \"status\": \"draft\"}]}",
+    "ResponseBody": "{\"posts\": [{\"id\": \"6749d5c4f78cdc2e5d5b5678\", \"title\": \"Stats Test Draft Post\", \"status\": \"draft\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:13:28.788Z",
+    "Scheme": "http",
+    "scenarioName": "site-stats-counts-verification",
+    "UniqueFields": [
+      "posts.0.title"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"site_stats\": [{\"postsTotal\": 2, \"postsPublished\": 1, \"postsDrafts\": 1, \"tagsTotal\": 0, \"membersTotal\": 0, \"viewsAllTime\": 0}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/site/stats",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:13:29.788Z",
+    "Scheme": "http",
+    "scenarioName": "site-stats-counts-verification"
+  }
+]
