@@ -69,6 +69,7 @@ module.exports = function apiRoutes() {
     router.post('/integrations/:id/api_key/:keyid/refresh', mw.authAdminApi, http(api.integrations.edit));
     router.put('/integrations/:id', mw.authAdminApi, http(api.integrations.edit));
     router.delete('/integrations/:id', mw.authAdminApi, http(api.integrations.destroy));
+    router.post('/integrations/:id/rotate-key', mw.authAdminApi, http(api.integrations.rotateKey));
 
     // ## Schedules
     router.put('/schedules/:resource/:id', mw.authAdminApiWithUrl, http(api.schedules.publish));
