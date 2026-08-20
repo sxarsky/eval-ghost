@@ -44,9 +44,20 @@ function getCacheHeaderFromEventString(event, dto) {
     }
 }
 
-/** @type {import('@tryghost/api-framework').Controller} */
+/**
+ * Posts API controller.
+ *
+ * @type {import('@tryghost/api-framework').Controller}
+ */
 const controller = {
     docName: 'posts',
+
+    /**
+     * browse - retrieve a list of posts
+     *
+     * @param {Object} frame - API frame containing options and context
+     * @returns {Promise<Object>} paginated posts result
+     */
     browse: {
         headers: {
             cacheInvalidate: false
