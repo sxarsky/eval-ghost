@@ -35,8 +35,19 @@ const controller = {
             }
         },
         permissions: true,
-        query(frame) {
-            return models.TagPublic.findPage(frame.options);
+        async query(frame) {
+            const page = await models.TagPublic.findPage(frame.options);
+            const {total, pages, page: currentPage, limit, next, prev} = page.meta.pagination;
+            return {
+                tags: page.data,
+                meta: {
+                    pagination: {total, pages, page: currentPage, limit}
+                },
+                links: {
+                    next: next ? `${frame.options.baseUrl || ''}?page=${next}` : null,
+                    prev: prev ? `${frame.options.baseUrl || ''}?page=${prev}` : null
+                }
+            };
         }
     },
 
