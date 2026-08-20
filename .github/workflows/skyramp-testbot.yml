@@ -34,6 +34,8 @@ jobs:
           githubAppId: ${{ secrets.SKYRAMP_TESTBOT_APP_ID }}
           githubAppPrivateKey: ${{ secrets.SKYRAMP_TESTBOT_APP_PRIVATE_KEY }}
           targetSetupCommand: >-
-            docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval run --rm ghost-builder && docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval up -d --wait --wait-timeout 300 ghost
+            docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval run --rm ghost-builder && docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval up -d --wait --wait-timeout 600 ghost
           targetTeardownCommand: 'docker compose -f $GITHUB_WORKSPACE/docker-compose.eval.yml -p ghost-eval down -v'
           authTokenCommand: 'bash $GITHUB_WORKSPACE/get-auth-token.sh'
+          authTokenRetries: "24"
+          authTokenRetryDelay: "15"
