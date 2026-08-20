@@ -57,6 +57,20 @@ test('testIntegration', async () => {
 
     // Generated Assertions
     expect(membersPostResponse.statusCode, 'status code').toBe(201);
+    const membersPostBody = JSON.parse(membersPostResponse.body);
+    const createdMember = membersPostBody.members[0];
+    members = createdMember.id;
+    const createdPrefs = typeof createdMember.notification_preferences === 'string'
+        ? JSON.parse(createdMember.notification_preferences)
+        : createdMember.notification_preferences;
+    expect(createdPrefs.newsletter, 'notification_preferences.newsletter default').toBe(true);
+    expect(createdPrefs.comment_replies, 'notification_preferences.comment_replies default').toBe(true);
+    expect(createdPrefs.weekly_digest, 'notification_preferences.weekly_digest default').toBe(false);
+    expect(getValue(membersPostResponse, "members.0.email"), 'email echo-back').toBe("skyramp_test@example.com");
+    expect(getValue(membersPostResponse, "members.0.name"), 'name echo-back').toBe("Skyramp Test Member");
+    expect(getValue(membersPostResponse, "members.0.id"), 'member id uuid format').toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
+    expect(getValue(membersPostResponse, "members.0.created_at"), 'created_at iso format').toMatch(/^\d{4}-\d{2}-\d{2}T/);
+    expect(getValue(membersPostResponse, "members.1"), 'no second member in post response').toBeUndefined();
 
     // Execute Request
     let membersMembersGetResponse = await client.sendRequest({
@@ -69,6 +83,18 @@ test('testIntegration', async () => {
 
     // Generated Assertions
     expect(membersMembersGetResponse.statusCode, 'status code').toBe(200);
+    const memberGetBody = JSON.parse(membersMembersGetResponse.body);
+    const getMember = memberGetBody.members[0];
+    const getPrefs = typeof getMember.notification_preferences === 'string'
+        ? JSON.parse(getMember.notification_preferences)
+        : getMember.notification_preferences;
+    expect(getPrefs.newsletter, 'notification_preferences.newsletter on GET').toBe(true);
+    expect(getPrefs.comment_replies, 'notification_preferences.comment_replies on GET').toBe(true);
+    expect(getPrefs.weekly_digest, 'notification_preferences.weekly_digest on GET').toBe(false);
+    expect(getValue(membersMembersGetResponse, "members.0.id"), 'id matches POST').toBe(getValue(membersPostResponse, "members.0.id"));
+    expect(getValue(membersMembersGetResponse, "members.0.email"), 'email preserved on GET').toBe("skyramp_test@example.com");
+    expect(getValue(membersMembersGetResponse, "members.0.name"), 'name preserved on GET').toBe("Skyramp Test Member");
+    expect(getValue(membersMembersGetResponse, "members.1"), 'no second member in get response').toBeUndefined();
 
     // Request Body
     const membersMembersPutRequestBody = `{
@@ -91,5 +117,17 @@ test('testIntegration', async () => {
 
     // Generated Assertions
     expect(membersMembersPutResponse.statusCode, 'status code').toBe(200);
+    const memberPutBody = JSON.parse(membersMembersPutResponse.body);
+    const putMember = memberPutBody.members[0];
+    const putPrefs = typeof putMember.notification_preferences === 'string'
+        ? JSON.parse(putMember.notification_preferences)
+        : putMember.notification_preferences;
+    expect(putPrefs.newsletter, 'notification_preferences.newsletter persists after PUT').toBe(true);
+    expect(putPrefs.comment_replies, 'notification_preferences.comment_replies persists after PUT').toBe(true);
+    expect(putPrefs.weekly_digest, 'notification_preferences.weekly_digest persists after PUT').toBe(false);
+    expect(getValue(membersMembersPutResponse, "members.0.id"), 'id unchanged after PUT').toBe(getValue(membersPostResponse, "members.0.id"));
+    expect(getValue(membersMembersPutResponse, "members.0.name"), 'name updated in PUT response').toBe("Updated Skyramp Test Member");
+    expect(getValue(membersMembersPutResponse, "members.0.email"), 'email unchanged after PUT').toBe("skyramp_test@example.com");
+    expect(getValue(membersMembersPutResponse, "members.1"), 'no second member in put response').toBeUndefined();
 });
 
