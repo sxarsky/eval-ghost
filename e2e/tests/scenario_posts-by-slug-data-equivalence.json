@@ -1,0 +1,58 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"posts\": [{\"id\": \"5e5d00f15c9f8e001f5e5d00\", \"slug\": \"welcome\", \"title\": \"Start here for a quick overview of everything you need to know\", \"status\": \"published\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/content/posts/by-slug/welcome",
+    "QueryParams": {
+      "key": [
+        "SKYRAMP_CONTENT_KEY_PLACEHOLDER"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:27:35.542Z",
+    "Scheme": "http",
+    "scenarioName": "posts-by-slug-data-equivalence"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"posts\": [{\"id\": \"5e5d00f15c9f8e001f5e5d00\", \"slug\": \"welcome\", \"title\": \"Start here for a quick overview of everything you need to know\", \"status\": \"published\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/content/posts/5e5d00f15c9f8e001f5e5d00",
+    "QueryParams": {
+      "key": [
+        "SKYRAMP_CONTENT_KEY_PLACEHOLDER"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:27:36.542Z",
+    "Scheme": "http",
+    "scenarioName": "posts-by-slug-data-equivalence"
+  }
+]
