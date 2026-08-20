@@ -1,0 +1,98 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"users\": [{\"id\": \"1\", \"name\": \"Test User\", \"email\": \"test@example.com\", \"roles\": [{\"name\": \"Author\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/users/",
+    "QueryParams": {
+      "include": [
+        "roles"
+      ],
+      "limit": [
+        "100"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:13:42.472Z",
+    "Scheme": "http",
+    "scenarioName": "users-super-editor-role-assignment"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"roles\": [{\"id\": \"2\", \"name\": \"Super Editor\", \"description\": \"Super Editors\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/roles/",
+    "QueryParams": {
+      "limit": [
+        "100"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:13:43.472Z",
+    "Scheme": "http",
+    "scenarioName": "users-super-editor-role-assignment"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"users\": [{\"id\": \"1\", \"roles\": [{\"id\": \"2\", \"name\": \"Super Editor\"}]}]}",
+    "ResponseBody": "{\"users\": [{\"id\": \"1\", \"name\": \"Test User\", \"roles\": [{\"id\": \"2\", \"name\": \"Super Editor\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/ghost/api/admin/users/1/",
+    "QueryParams": {
+      "include": [
+        "roles"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:13:44.472Z",
+    "Scheme": "http",
+    "scenarioName": "users-super-editor-role-assignment"
+  }
+]
