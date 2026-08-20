@@ -18,7 +18,8 @@ const Member = ghostBookshelf.Model.extend({
             transient_id: crypto.randomUUID(),
             email_count: 0,
             email_opened_count: 0,
-            enable_comment_notifications: true
+            enable_comment_notifications: true,
+            notification_preferences: '{"newsletter":true,"comment_replies":true,"weekly_digest":false}'
         };
     },
 
@@ -51,6 +52,44 @@ const Member = ghostBookshelf.Model.extend({
         // Convert MemberCommenting domain object to JSON string for storage
         if (attrs.commenting) {
             attrs.commenting = MemberCommentingCodec.format(attrs.commenting);
+        }
+
+        // Validate and serialize notification_preferences
+        if (Object.prototype.hasOwnProperty.call(attrs, 'notification_preferences')) {
+            const prefs = attrs.notification_preferences;
+            if (prefs === null) {
+                throw Object.assign(new Error('notification_preferences cannot be null'), {statusCode: 422});
+            }
+            if (typeof prefs === 'object') {
+                const ALLOWED_KEYS = ['newsletter', 'comment_replies', 'weekly_digest'];
+                const keys = Object.keys(prefs);
+                const unknownKeys = keys.filter(k => !ALLOWED_KEYS.includes(k));
+                if (unknownKeys.length > 0) {
+                    throw Object.assign(new Error(`notification_preferences contains unknown keys: ${unknownKeys.join(', ')}`), {statusCode: 422});
+                }
+                const missingKeys = ALLOWED_KEYS.filter(k => !Object.prototype.hasOwnProperty.call(prefs, k));
+                if (missingKeys.length > 0) {
+                    throw Object.assign(new Error(`notification_preferences is missing required keys: ${missingKeys.join(', ')}`), {statusCode: 422});
+                }
+                attrs.notification_preferences = JSON.stringify(prefs);
+            } else if (typeof prefs === 'string') {
+                let parsed;
+                try {
+                    parsed = JSON.parse(prefs);
+                } catch (e) {
+                    throw Object.assign(new Error('notification_preferences must be a valid JSON object'), {statusCode: 422});
+                }
+                const ALLOWED_KEYS = ['newsletter', 'comment_replies', 'weekly_digest'];
+                const keys = Object.keys(parsed);
+                const unknownKeys = keys.filter(k => !ALLOWED_KEYS.includes(k));
+                if (unknownKeys.length > 0) {
+                    throw Object.assign(new Error(`notification_preferences contains unknown keys: ${unknownKeys.join(', ')}`), {statusCode: 422});
+                }
+                const missingKeys = ALLOWED_KEYS.filter(k => !Object.prototype.hasOwnProperty.call(parsed, k));
+                if (missingKeys.length > 0) {
+                    throw Object.assign(new Error(`notification_preferences is missing required keys: ${missingKeys.join(', ')}`), {statusCode: 422});
+                }
+            }
         }
 
         return ghostBookshelf.Model.prototype.format.call(this, attrs);
