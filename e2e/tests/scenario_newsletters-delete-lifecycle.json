@@ -1,0 +1,86 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"newsletters\": [{\"name\": \"Test Newsletter Lifecycle\"}]}",
+    "ResponseBody": "{\"newsletters\": [{\"id\": \"63e3b7f4fd1b1b01f98d1f3b\", \"name\": \"Test Newsletter Lifecycle\", \"status\": \"active\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/newsletters",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:12:21.020Z",
+    "Scheme": "http",
+    "scenarioName": "newsletters-delete-lifecycle",
+    "UniqueFields": [
+      "newsletters.0.name"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/newsletters/63e3b7f4fd1b1b01f98d1f3b",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:12:22.020Z",
+    "Scheme": "http",
+    "scenarioName": "newsletters-delete-lifecycle"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/newsletters/63e3b7f4fd1b1b01f98d1f3b",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:12:23.020Z",
+    "Scheme": "http",
+    "scenarioName": "newsletters-delete-lifecycle"
+  }
+]
