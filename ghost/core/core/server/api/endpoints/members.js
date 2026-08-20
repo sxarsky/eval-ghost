@@ -10,6 +10,25 @@ const settingsCache = require('../../../shared/settings-cache');
 const tpl = require('@tryghost/tpl');
 const _ = require('lodash');
 
+function formatMemberShape(member, req) {
+    if (!member) {
+        return member;
+    }
+    const acceptVersion = req && req.headers && req.headers['accept-version'];
+    if (acceptVersion && acceptVersion.startsWith('v4')) {
+        return member;
+    }
+    const data = member.toJSON ? member.toJSON() : member;
+    const {id, uuid, email, name, note, status, paid, subscribed, email_verified, created_at, updated_at, ...rest} = data;
+    return {
+        ...rest,
+        id,
+        uuid,
+        profile: {id, email, name, note, created_at, updated_at},
+        subscription: {status, paid, subscribed, email_verified}
+    };
+}
+
 const messages = {
     memberNotFound: 'Member not found.',
     notSendingWelcomeEmail: 'Email verification required, welcome email is disabled',
@@ -59,7 +78,10 @@ const controller = {
         },
         async query(frame) {
             const page = await membersService.api.memberBREADService.browse(frame.options);
-
+            const req = frame.options.context && frame.options.context.req;
+            if (page && page.data) {
+                page.data = page.data.map(m => formatMemberShape(m, req));
+            }
             return page;
         }
     },
@@ -92,7 +114,8 @@ const controller = {
                 });
             }
 
-            return member;
+            const req = frame.options.context && frame.options.context.req;
+            return formatMemberShape(member, req);
         }
     },
 
