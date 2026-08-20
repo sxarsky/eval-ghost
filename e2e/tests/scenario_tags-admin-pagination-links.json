@@ -1,0 +1,33 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"tags\": [{\"id\": \"1\", \"name\": \"Getting Started\", \"slug\": \"getting-started\"}], \"meta\": {\"pagination\": {\"total\": 5, \"pages\": 3, \"page\": 1, \"limit\": 2}}, \"links\": {\"next\": \"?page=2\", \"prev\": null}}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/ghost/api/admin/tags",
+    "QueryParams": {
+      "limit": [
+        "2"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T08:47:03.636Z",
+    "Scheme": "http",
+    "scenarioName": "tags-admin-pagination-links"
+  }
+]
