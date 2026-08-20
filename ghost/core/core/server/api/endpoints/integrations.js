@@ -164,6 +164,64 @@ const controller = {
                 }
             }
         }
+    },
+
+    rotateKey: {
+        statusCode: 200,
+        headers: {
+            cacheInvalidate: false
+        },
+        permissions: {
+            method: 'edit'
+        },
+        options: [
+            'id'
+        ],
+        validation: {
+            options: {
+                id: {
+                    required: true
+                }
+            }
+        },
+        async query({options}) {
+            let integration;
+            try {
+                integration = await models.Integration.findOne(
+                    {id: options.id},
+                    {require: true, withRelated: ['api_keys']}
+                );
+            } catch (e) {
+                throw new errors.NotFoundError({
+                    message: tpl(messages.resourceNotFound, {resource: 'Integration'})
+                });
+            }
+
+            const adminKey = integration.related('api_keys').find(k => k.get('type') === 'admin');
+            if (!adminKey) {
+                throw new errors.NotFoundError({
+                    message: tpl(messages.resourceNotFound, {resource: 'Integration API key'})
+                });
+            }
+
+            // Rotate the secret in the DB using the model's refreshSecret helper
+            const updatedKey = await models.ApiKey.refreshSecret(
+                {id: adminKey.id, type: 'admin'},
+                {id: adminKey.id}
+            );
+
+            return {
+                integrations: [{
+                    id: integration.id,
+                    name: integration.get('name'),
+                    api_keys: [{
+                        id: updatedKey.id,
+                        type: 'admin',
+                        secret: updatedKey.get('secret')
+                    }]
+                }]
+            };
+        }
     }
 };
 
