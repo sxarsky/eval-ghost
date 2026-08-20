@@ -151,6 +151,23 @@ const Products = ghostBookshelf.Collection.extend({
     model: Product
 });
 
+/**
+ * tierSubscription
+ *
+ * Return the active subscription for a member on this tier,
+ * or null if no active subscription exists.
+ *
+ * @param {string} memberId
+ * @returns {Promise<Object|null>}
+ */
+Product.prototype.tierSubscription = async function tierSubscription(memberId) {
+    const subscriptions = await ghostBookshelf.knex('members_products')
+        .where({member_id: memberId, product_id: this.id})
+        .select('*')
+        .limit(1);
+    return subscriptions[0] || null;
+};
+
 module.exports = {
     Product: ghostBookshelf.model('Product', Product),
     Products: ghostBookshelf.collection('Products', Products)
