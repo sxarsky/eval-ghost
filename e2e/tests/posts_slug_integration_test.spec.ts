@@ -40,6 +40,9 @@ test('testIntegration', async () => {
 
     // Generated Assertions
     expect(postsGetResponse.statusCode, 'status code').toBe(200);
+    expect(getValue(postsGetResponse, "posts").length).toBeGreaterThanOrEqual(1);
+    expect(getValue(postsGetResponse, "posts.0")).toBeDefined();
+    expect(getValue(postsGetResponse, "meta.pagination.page")).toBe(1);
 
     // Execute Request
     let slugGetResponse = await client.sendRequest({
@@ -51,6 +54,8 @@ test('testIntegration', async () => {
     });
 
     // Generated Assertions
-    expect(slugGetResponse.statusCode, 'status code').toBe(200);
+    expect(slugGetResponse.statusCode, 'status code').toBe(301);
+    const location = slugGetResponse.headers?.['location'] ?? slugGetResponse.headers?.['Location'];
+    expect(location, 'Location header').toContain('/ghost/api/content/posts/by-slug/welcome');
 });
 
