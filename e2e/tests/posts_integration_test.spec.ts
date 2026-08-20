@@ -36,7 +36,8 @@ test('testIntegration', async () => {
             "posts": [
                 {
                     "status": "draft",
-                    "title": "Test Post Title"
+                    "title": "Test Post Title",
+                    "featured_excerpt": "A short featured excerpt"
                 }
             ]
         }`
@@ -52,6 +53,12 @@ test('testIntegration', async () => {
 
     // Generated Assertions
     expect(postsPostResponse.statusCode, 'status code').toBe(201);
+    expect(getValue(postsPostResponse, "posts.0.featured_excerpt"), 'featured_excerpt on create').toBe('A short featured excerpt');
+    expect(getValue(postsPostResponse, "posts.0.title"), 'title echo-back').toBe('Test Post Title');
+    expect(getValue(postsPostResponse, "posts.0.status"), 'status echo-back').toBe('draft');
+    expect(getValue(postsPostResponse, "posts.0.id"), 'post id format').toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
+    expect(getValue(postsPostResponse, "posts.0.created_at"), 'created_at format').toMatch(/^\d{4}-\d{2}-\d{2}T/);
+    expect(getValue(postsPostResponse, "posts.1"), 'no second post').toBeUndefined();
 
     // Execute Request
     let postsPostsGetResponse = await client.sendRequest({
@@ -64,13 +71,17 @@ test('testIntegration', async () => {
 
     // Generated Assertions
     expect(postsPostsGetResponse.statusCode, 'status code').toBe(200);
+    expect(getValue(postsPostsGetResponse, "posts.0.featured_excerpt"), 'featured_excerpt on GET').toBe(getValue(postsPostResponse, "posts.0.featured_excerpt"));
+    expect(getValue(postsPostsGetResponse, "posts.0.id"), 'GET id matches POST id').toBe(getValue(postsPostResponse, "posts.0.id"));
+    expect(getValue(postsPostsGetResponse, "posts.1"), 'no second post on GET').toBeUndefined();
 
     // Request Body
     const postsPostsPutRequestBody = `{
             "posts": [
                 {
                     "title": "Updated Test Post Title",
-                    "updated_at": "2026-01-01T00:00:00.000Z"
+                    "updated_at": "2026-01-01T00:00:00.000Z",
+                    "featured_excerpt": "Updated featured excerpt"
                 }
             ]
         }`
@@ -87,5 +98,9 @@ test('testIntegration', async () => {
 
     // Generated Assertions
     expect(postsPostsPutResponse.statusCode, 'status code').toBe(200);
+    expect(getValue(postsPostsPutResponse, "posts.0.featured_excerpt"), 'featured_excerpt on PUT').toBe('Updated featured excerpt');
+    expect(getValue(postsPostsPutResponse, "posts.0.title"), 'title echo-back on PUT').toBe('Updated Test Post Title');
+    expect(getValue(postsPostsPutResponse, "posts.0.id"), 'PUT id matches POST id').toBe(getValue(postsPostResponse, "posts.0.id"));
+    expect(getValue(postsPostsPutResponse, "posts.1"), 'no second post on PUT').toBeUndefined();
 });
 
