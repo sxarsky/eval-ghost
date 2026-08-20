@@ -1,6 +1,7 @@
 const tpl = require('@tryghost/tpl');
 const errors = require('@tryghost/errors');
 const models = require('../../models');
+const normalizeSlug = require('../../services/tags/normalize-slug');
 
 const ALLOWED_INCLUDES = ['count.posts'];
 
@@ -90,7 +91,11 @@ const controller = {
         },
         permissions: true,
         query(frame) {
-            return models.Tag.add(frame.data.tags[0], frame.options);
+            const tagData = frame.data.tags[0];
+            if (tagData.slug) {
+                tagData.slug = normalizeSlug(tagData.slug);
+            }
+            return models.Tag.add(tagData, frame.options);
         }
     },
 
