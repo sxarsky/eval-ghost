@@ -52,5 +52,7 @@ test('testIntegration', async () => {
 
     // Generated Assertions
     expect(slugGetResponse.statusCode, 'status code').toBe(200);
+    expect(getValue(slugGetResponse, "posts.0"), 'response post object').toBeDefined();
+    expect(getValue(slugGetResponse, "posts.0.featured_excerpt") === null || typeof getValue(slugGetResponse, "posts.0.featured_excerpt") === 'string', 'featured_excerpt type').toBe(true);
 });
 
