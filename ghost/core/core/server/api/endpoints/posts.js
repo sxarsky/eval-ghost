@@ -1,5 +1,11 @@
 const urlUtils = require('../../../shared/url-utils');
+const errors = require('@tryghost/errors');
+const tpl = require('@tryghost/tpl');
 const models = require('../../models');
+
+const messages = {
+    invalidNewsletterId: 'newsletter_id does not match any active newsletter.'
+};
 const getPostServiceInstance = require('../../services/posts/posts-service-instance');
 const allowedIncludes = [
     'tags',
@@ -156,7 +162,8 @@ const controller = {
         options: [
             'include',
             'formats',
-            'source'
+            'source',
+            'newsletter'
         ],
         validation: {
             options: {
@@ -172,7 +179,16 @@ const controller = {
             unsafeAttrs: unsafeAttrs
         },
         async query(frame) {
-            const model = await models.Post.add(frame.data.posts[0], frame.options);
+            const postData = frame.data.posts[0];
+            if (postData.newsletter_id) {
+                const newsletter = await models.Newsletter.findOne({id: postData.newsletter_id}, {});
+                if (!newsletter) {
+                    throw new errors.ValidationError({
+                        message: tpl(messages.invalidNewsletterId)
+                    });
+                }
+            }
+            const model = await models.Post.add(postData, frame.options);
             if (model.get('status') === 'published') {
                 frame.setHeader('X-Cache-Invalidate', '/*');
             }
