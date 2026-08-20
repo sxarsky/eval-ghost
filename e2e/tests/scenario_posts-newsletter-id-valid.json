@@ -1,0 +1,86 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"newsletters\": [{\"id\": \"6514be7000c8b3004e5c56a1\", \"name\": \"Default Newsletter\", \"status\": \"active\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/newsletters",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:13:10.655Z",
+    "Scheme": "http",
+    "scenarioName": "posts-newsletter-id-valid"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\": [{\"title\": \"Newsletter FK Test Post\", \"status\": \"draft\", \"newsletter_id\": \"6514be7000c8b3004e5c56a1\"}]}",
+    "ResponseBody": "{\"posts\": [{\"id\": \"6514be7000c8b3004e5c56a2\", \"title\": \"Newsletter FK Test Post\", \"status\": \"draft\", \"newsletter_id\": \"6514be7000c8b3004e5c56a1\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:13:11.655Z",
+    "Scheme": "http",
+    "scenarioName": "posts-newsletter-id-valid",
+    "UniqueFields": [
+      "posts.0.title"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/posts/6514be7000c8b3004e5c56a2",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:13:12.655Z",
+    "Scheme": "http",
+    "scenarioName": "posts-newsletter-id-valid"
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\": [{\"title\": \"Post With Invalid Newsletter\", \"status\": \"draft\", \"newsletter_id\": \"000000000000000000000001\"}]}",
+    "ResponseBody": "{\"errors\": [{\"message\": \"newsletter_id does not match any active newsletter.\", \"type\": \"ValidationError\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts",
+    "QueryParams": {},
+    "StatusCode": 422,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:13:17.766Z",
+    "Scheme": "http",
+    "scenarioName": "posts-newsletter-id-invalid-422"
+  }
+]
