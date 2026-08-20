@@ -208,6 +208,17 @@ module.exports = function createSessionService({
      * @returns {Promise<void>}
      */
     async function createSessionForUser(req, res, user) {
+        // Regenerate session ID before login to prevent session fixation attacks.
+        // Must happen before getSession so the new session receives the user data.
+        await new Promise((resolve, reject) => {
+            req.session.regenerate((err) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve();
+            });
+        });
+
         const session = await getSession(req, res);
         const origin = getOriginOfRequest(req);
         await assignUserToSession({
@@ -483,6 +494,16 @@ module.exports = function createSessionService({
 
         invalidateAuthCodeChallenge(session);
         session.user_id = undefined;
+
+        // Rotate session ID on logout to prevent session fixation attacks.
+        await new Promise((resolve, reject) => {
+            req.session.regenerate((err) => {
+                if (err) {
+                    return reject(err);
+                }
+                resolve();
+            });
+        });
     }
 
     /**
