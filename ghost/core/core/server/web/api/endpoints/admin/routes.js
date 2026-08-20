@@ -265,9 +265,6 @@ module.exports = function apiRoutes() {
         http(api.db.inlineMedia)
     );
 
-    // ## Slack
-    router.post('/slack/test', mw.authAdminApi, http(api.slack.sendTest));
-
     // ## Tinybird
     router.get('/tinybird/token', mw.authAdminApi, http(api.tinybird.token));
 
