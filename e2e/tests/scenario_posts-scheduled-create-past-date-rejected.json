@@ -1,0 +1,29 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\": [{\"title\": \"Past Scheduled Post\", \"status\": \"scheduled\", \"publish_at\": \"2020-01-15T12:00:00.000Z\"}]}",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts",
+    "QueryParams": {},
+    "StatusCode": 422,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:13:57.058Z",
+    "Scheme": "http",
+    "scenarioName": "posts-scheduled-create-past-date-rejected"
+  }
+]
