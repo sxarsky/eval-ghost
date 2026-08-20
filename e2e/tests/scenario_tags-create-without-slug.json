@@ -1,0 +1,59 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"tags\": [{\"name\": \"Auto Generated Slug Tag\"}]}",
+    "ResponseBody": "{\"tags\": [{\"id\": \"b1c2d3e4-f5a6-4b7c-c8d9-e0f1a2b3c4d5\", \"name\": \"Auto Generated Slug Tag\", \"slug\": \"auto-generated-slug-tag\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/ghost/api/admin/tags",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:12:37.061Z",
+    "Scheme": "http",
+    "scenarioName": "tags-create-without-slug",
+    "UniqueFields": [
+      "tags.0.name"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/ghost/api/admin/tags/b1c2d3e4-f5a6-4b7c-c8d9-e0f1a2b3c4d5",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:12:38.061Z",
+    "Scheme": "http",
+    "scenarioName": "tags-create-without-slug"
+  }
+]

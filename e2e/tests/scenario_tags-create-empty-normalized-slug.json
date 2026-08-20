@@ -1,0 +1,32 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"tags\": [{\"name\": \"Empty Slug Tag\", \"slug\": \"---\"}]}",
+    "ResponseBody": "{\"tags\": [{\"id\": \"f47ac10b-58cc-4372-a567-0e02b2c3d479\", \"name\": \"Empty Slug Tag\", \"slug\": \"empty-slug-tag\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/ghost/api/admin/tags",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:12:29.194Z",
+    "Scheme": "http",
+    "scenarioName": "tags-create-empty-normalized-slug",
+    "UniqueFields": [
+      "tags.0.name"
+    ]
+  }
+]
