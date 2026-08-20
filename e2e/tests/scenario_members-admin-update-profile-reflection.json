@@ -1,0 +1,113 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"members\": [{\"email\": \"testupdate@skyramp.dev\", \"name\": \"Original Name Member\"}]}",
+    "ResponseBody": "{\"members\": [{\"id\": \"68c1a2b3d4e5f60000000003\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/members",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:17:29.897Z",
+    "Scheme": "http",
+    "scenarioName": "members-admin-update-profile-reflection",
+    "UniqueFields": [
+      "members.0.email"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"members\": [{\"name\": \"Updated Name Member\"}]}",
+    "ResponseBody": "{\"members\": [{\"id\": \"68c1a2b3d4e5f60000000003\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/ghost/api/admin/members/68c1a2b3d4e5f60000000003",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:17:30.897Z",
+    "Scheme": "http",
+    "scenarioName": "members-admin-update-profile-reflection"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"members\": [{\"id\": \"68c1a2b3d4e5f60000000003\", \"profile\": {\"name\": \"Updated Name Member\", \"email\": \"testupdate@skyramp.dev\"}, \"subscription\": {\"status\": \"free\", \"paid\": false, \"subscribed\": false, \"email_verified\": false}}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/members/68c1a2b3d4e5f60000000003",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:17:31.897Z",
+    "Scheme": "http",
+    "scenarioName": "members-admin-update-profile-reflection"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/members/68c1a2b3d4e5f60000000003",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:17:32.897Z",
+    "Scheme": "http",
+    "scenarioName": "members-admin-update-profile-reflection"
+  }
+]

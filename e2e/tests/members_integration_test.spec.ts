@@ -33,9 +33,6 @@ test('testIntegration', async () => {
         headers["Authorization"] = "Ghost " + process.env.SKYRAMP_TEST_TOKEN;
     }
 
-    // Declaration of variables
-    let members = "1";
-
     // Request Body
     const membersPostRequestBody = `{
             "members": [
@@ -45,7 +42,7 @@ test('testIntegration', async () => {
                 }
             ]
         }`
-    
+
     // Execute Request
     let membersPostResponse = await client.sendRequest({
         url:URL_localhost,
@@ -58,6 +55,9 @@ test('testIntegration', async () => {
     // Generated Assertions
     expect(membersPostResponse.statusCode, 'status code').toBe(201);
 
+    // Chain member id from POST response
+    let members = membersPostResponse.body.members[0].id;
+
     // Execute Request
     let membersMembersGetResponse = await client.sendRequest({
         url:URL_localhost,
@@ -69,6 +69,23 @@ test('testIntegration', async () => {
 
     // Generated Assertions
     expect(membersMembersGetResponse.statusCode, 'status code').toBe(200);
+    // Assert new nested envelope response shape
+    const getMember = membersMembersGetResponse.body.members[0];
+    expect(getMember.profile, 'profile object exists').toBeDefined();
+    expect(getMember.profile.email, 'profile.email').toBe("skyramp_test@example.com");
+    expect(getMember.profile.name, 'profile.name').toBe("Skyramp Test Member");
+    expect(getMember.profile.note, 'profile.note').toBeDefined();
+    expect(getMember.profile.created_at, 'profile.created_at').toBeDefined();
+    expect(getMember.profile.updated_at, 'profile.updated_at').toBeDefined();
+    expect(getMember.subscription, 'subscription object exists').toBeDefined();
+    expect(getMember.subscription.status, 'subscription.status').toBeDefined();
+    expect(getMember.subscription.paid, 'subscription.paid').toBeDefined();
+    expect(getMember.subscription.subscribed, 'subscription.subscribed').toBeDefined();
+    expect(getMember.subscription.email_verified, 'subscription.email_verified').toBeDefined();
+    // Flat fields should NOT be at top level in default response
+    expect(getMember.email, 'email not at top level').toBeUndefined();
+    expect(getMember.name, 'name not at top level').toBeUndefined();
+    expect(getMember.status, 'status not at top level').toBeUndefined();
 
     // Request Body
     const membersMembersPutRequestBody = `{
