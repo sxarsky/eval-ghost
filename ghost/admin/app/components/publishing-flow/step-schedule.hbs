@@ -1,0 +1,37 @@
+<div class="publishing-flow-step publishing-flow-step--schedule">
+  <h2 class="publishing-flow-step__title">When do you want to publish?</h2>
+
+  <div class="publishing-flow-schedule">
+    <p class="publishing-flow-schedule__hint">
+      Leave blank to publish immediately, or choose a future date and time.
+    </p>
+
+    <div class="publishing-flow-schedule__picker">
+      <label for="publish-schedule-date">Schedule date (optional)</label>
+      <GhDateTimePicker
+        id="publish-schedule-date"
+        @value={{@scheduleDate}}
+        @onChange={{@setScheduleDate}}
+        @minDate={{now}}
+      />
+      {{#if @scheduleDateError}}
+        <p class="publishing-flow-schedule__error" role="alert">
+          {{@scheduleDateError}}
+        </p>
+      {{/if}}
+    </div>
+  </div>
+
+  <div class="publishing-flow-step__actions">
+    <GhButton
+      @label="Back"
+      @class="gh-btn"
+      {{on "click" @goBack}}
+    />
+    <GhButton
+      @label="Next"
+      @class="gh-btn gh-btn-primary"
+      {{on "click" @goNext}}
+    />
+  </div>
+</div>

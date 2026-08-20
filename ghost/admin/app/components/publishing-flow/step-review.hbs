@@ -1,0 +1,38 @@
+<div class="publishing-flow-step publishing-flow-step--review">
+  <h2 class="publishing-flow-step__title">Review &amp; confirm</h2>
+
+  <div class="publishing-flow-review">
+    <dl class="publishing-flow-review__summary">
+      <dt>Destination</dt>
+      <dd data-testid="review-destination">
+        {{#if (eq @destination "site")}}Site only
+        {{else if (eq @destination "email")}}Email only
+        {{else}}Site &amp; email{{/if}}
+      </dd>
+
+      {{#if @scheduleDate}}
+        <dt>Schedule</dt>
+        <dd data-testid="review-schedule">{{@scheduleDate}}</dd>
+      {{/if}}
+
+      {{#if @selectedNewsletter}}
+        <dt>Newsletter</dt>
+        <dd data-testid="review-newsletter">{{@selectedNewsletter.name}}</dd>
+      {{/if}}
+    </dl>
+  </div>
+
+  <div class="publishing-flow-step__actions">
+    <GhButton
+      @label="Back"
+      @class="gh-btn"
+      {{on "click" @goBack}}
+    />
+    <GhButton
+      @label="Confirm"
+      @class="gh-btn gh-btn-primary"
+      data-testid="confirm-publish"
+      {{on "click" @confirmPublish}}
+    />
+  </div>
+</div>

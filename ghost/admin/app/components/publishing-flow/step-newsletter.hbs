@@ -1,0 +1,36 @@
+<div class="publishing-flow-step publishing-flow-step--newsletter">
+  <h2 class="publishing-flow-step__title">Choose a newsletter</h2>
+
+  <div class="publishing-flow-newsletter">
+    <p class="publishing-flow-newsletter__hint">
+      Select the newsletter to send this post to.
+    </p>
+
+    <div class="publishing-flow-newsletter__select">
+      <label for="publish-newsletter-select">Newsletter</label>
+      <PowerSelect
+        id="publish-newsletter-select"
+        @options={{@newsletters}}
+        @selected={{@selectedNewsletter}}
+        @onChange={{@setNewsletter}}
+        @placeholder="Select a newsletter..."
+        as |newsletter|
+      >
+        {{newsletter.name}}
+      </PowerSelect>
+    </div>
+  </div>
+
+  <div class="publishing-flow-step__actions">
+    <GhButton
+      @label="Back"
+      @class="gh-btn"
+      {{on "click" @goBack}}
+    />
+    <GhButton
+      @label="Next"
+      @class="gh-btn gh-btn-primary"
+      {{on "click" @goNext}}
+    />
+  </div>
+</div>
