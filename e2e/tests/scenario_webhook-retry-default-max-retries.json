@@ -1,0 +1,86 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"webhooks\": [{\"event\": \"post.updated\", \"target_url\": \"https://example.com/default-retry-test\", \"name\": \"Default Retry Test\"}]}",
+    "ResponseBody": "{\"webhooks\": [{\"id\": \"660e8400-e29b-41d4-a716-446655440000\", \"event\": \"post.updated\", \"target_url\": \"https://example.com/default-retry-test\", \"name\": \"Default Retry Test\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/webhooks",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:18:36.315Z",
+    "Scheme": "http",
+    "scenarioName": "webhook-retry-default-max-retries",
+    "UniqueFields": [
+      "webhooks.0.name"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{}",
+    "ResponseBody": "{\"webhook_id\": \"660e8400-e29b-41d4-a716-446655440000\", \"max_retries\": 3, \"actual_attempts\": 3, \"results\": [{\"attempt\": 1, \"status\": \"success\"}, {\"attempt\": 2, \"status\": \"success\"}, {\"attempt\": 3, \"status\": \"success\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/webhooks/660e8400-e29b-41d4-a716-446655440000/retry",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:18:37.315Z",
+    "Scheme": "http",
+    "scenarioName": "webhook-retry-default-max-retries"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/webhooks/660e8400-e29b-41d4-a716-446655440000",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-20T09:18:38.315Z",
+    "Scheme": "http",
+    "scenarioName": "webhook-retry-default-max-retries"
+  }
+]
