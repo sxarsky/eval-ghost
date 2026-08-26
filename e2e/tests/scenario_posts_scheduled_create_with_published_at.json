@@ -1,0 +1,86 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\":[{\"title\":\"canonical scheduled post\",\"status\":\"scheduled\",\"published_at\":\"2027-06-01T10:00:00.000Z\"}]}",
+    "ResponseBody": "{\"posts\":[{\"id\":\"6b1f7c94a2e5d30012ab34cd\",\"title\":\"canonical scheduled post\",\"status\":\"scheduled\",\"published_at\":\"2027-06-01T10:00:00.000Z\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T19:04:38.640Z",
+    "Scheme": "http",
+    "scenarioName": "posts_scheduled_create_with_published_at",
+    "UniqueFields": [
+      "posts.0.title"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"posts\":[{\"id\":\"6b1f7c94a2e5d30012ab34cd\",\"title\":\"canonical scheduled post\",\"status\":\"scheduled\",\"published_at\":\"2027-06-01T10:00:00.000Z\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/posts/6b1f7c94a2e5d30012ab34cd/",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T19:04:39.640Z",
+    "Scheme": "http",
+    "scenarioName": "posts_scheduled_create_with_published_at"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/posts/6b1f7c94a2e5d30012ab34cd/",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T19:04:40.640Z",
+    "Scheme": "http",
+    "scenarioName": "posts_scheduled_create_with_published_at"
+  }
+]

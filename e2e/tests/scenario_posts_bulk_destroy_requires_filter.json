@@ -1,0 +1,86 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\":[{\"title\":\"bystander post\",\"status\":\"draft\"}]}",
+    "ResponseBody": "{\"posts\":[{\"id\":\"7c2a8d05b3f6e41123bc45de\",\"title\":\"bystander post\",\"status\":\"draft\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T19:04:52.229Z",
+    "Scheme": "http",
+    "scenarioName": "posts_bulk_destroy_requires_filter",
+    "UniqueFields": [
+      "posts.0.title"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"errors\":[{\"message\":\"A filter is required for bulk destroy\",\"type\":\"ValidationError\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/posts",
+    "QueryParams": {},
+    "StatusCode": 422,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T19:04:53.229Z",
+    "Scheme": "http",
+    "scenarioName": "posts_bulk_destroy_requires_filter"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"posts\":[{\"id\":\"7c2a8d05b3f6e41123bc45de\",\"title\":\"bystander post\",\"status\":\"draft\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/posts/7c2a8d05b3f6e41123bc45de/",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T19:04:54.229Z",
+    "Scheme": "http",
+    "scenarioName": "posts_bulk_destroy_requires_filter"
+  }
+]
