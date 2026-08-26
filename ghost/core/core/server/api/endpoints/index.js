@@ -189,6 +189,10 @@ module.exports = {
         return apiFramework.pipeline(require('./snippets'), localUtils);
     },
 
+    get analytics() {
+        return apiFramework.pipeline(require('./analytics'), localUtils);
+    },
+
     get stats() {
         return apiFramework.pipeline(require('./stats'), localUtils);
     },
