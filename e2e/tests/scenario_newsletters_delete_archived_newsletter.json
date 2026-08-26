@@ -1,0 +1,86 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"newsletters\":[{\"name\":\"Skyramp Archived Delete\",\"description\":\"archived then deleted\"}]}",
+    "ResponseBody": "{\"newsletters\":[{\"id\":\"6712a4b3c9d1e2f405a6b7d9\",\"name\":\"Skyramp Archived Delete\",\"description\":\"archived then deleted\",\"slug\":\"skyramp-archived-delete\",\"status\":\"active\",\"visibility\":\"members\",\"subscribe_on_signup\":true}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/newsletters",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T18:57:45.388Z",
+    "Scheme": "http",
+    "scenarioName": "newsletters_delete_archived_newsletter",
+    "UniqueFields": [
+      "newsletters.0.name"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"newsletters\":[{\"status\":\"archived\"}]}",
+    "ResponseBody": "{\"newsletters\":[{\"id\":\"6712a4b3c9d1e2f405a6b7d9\",\"name\":\"Skyramp Archived Delete\",\"status\":\"archived\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/ghost/api/admin/newsletters/6712a4b3c9d1e2f405a6b7d9",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T18:57:46.388Z",
+    "Scheme": "http",
+    "scenarioName": "newsletters_delete_archived_newsletter"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/newsletters/6712a4b3c9d1e2f405a6b7d9",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T18:57:47.388Z",
+    "Scheme": "http",
+    "scenarioName": "newsletters_delete_archived_newsletter"
+  }
+]
