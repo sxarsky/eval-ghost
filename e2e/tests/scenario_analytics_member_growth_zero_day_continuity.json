@@ -1,0 +1,89 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"members\":[{\"email\":\"skyramp_growth_a@example.com\",\"name\":\"Skyramp Growth Member A\"}]}",
+    "ResponseBody": "{\"members\":[{\"id\":\"6710a1b2c3d4e5f600000001\",\"email\":\"skyramp_growth_a@example.com\",\"name\":\"Skyramp Growth Member A\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/members",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T19:01:54.594Z",
+    "Scheme": "http",
+    "scenarioName": "analytics_member_growth_zero_day_continuity",
+    "UniqueFields": [
+      "members.0.email"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"members\":[{\"email\":\"skyramp_growth_b@example.com\",\"name\":\"Skyramp Growth Member B\"}]}",
+    "ResponseBody": "{\"members\":[{\"id\":\"6710a1b2c3d4e5f600000002\",\"email\":\"skyramp_growth_b@example.com\",\"name\":\"Skyramp Growth Member B\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/members",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T19:01:55.594Z",
+    "Scheme": "http",
+    "scenarioName": "analytics_member_growth_zero_day_continuity",
+    "UniqueFields": [
+      "members.0.email"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"start_date\":\"2026-07-27\",\"end_date\":\"2026-08-26\",\"data\":[{\"date\":\"2026-08-26\",\"count\":2}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/analytics/member-growth",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T19:01:56.594Z",
+    "Scheme": "http",
+    "scenarioName": "analytics_member_growth_zero_day_continuity"
+  }
+]
