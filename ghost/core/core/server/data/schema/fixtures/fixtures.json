@@ -118,6 +118,10 @@
                 {
                     "name": "Super Editor",
                     "description": "Super Editors"
+                },
+                {
+                    "name": "Editor Plus",
+                    "description": "Editors with extended publishing privileges"
                 }
             ]
         },
@@ -1041,6 +1045,25 @@
                     "member_signin_url": "read",
                     "offer": ["browse", "read"],
                     "comment": "all"
+                },
+                "Editor Plus": {
+                    "notification": "all",
+                    "post": "all",
+                    "setting": ["browse", "read"],
+                    "slug": "all",
+                    "tag": "all",
+                    "user": ["browse", "read"],
+                    "role": ["browse"],
+                    "invite": "all",
+                    "theme": ["browse", "readActive"],
+                    "email_preview": "all",
+                    "email": "all",
+                    "snippet": "all",
+                    "label": ["browse", "read", "edit", "add", "destroy"],
+                    "product": ["browse", "read"],
+                    "newsletter": ["browse", "read", "add", "edit"],
+                    "collection": "all",
+                    "recommendation": ["browse", "read"]
                 },
                 "Editor": {
                     "notification": "all",
