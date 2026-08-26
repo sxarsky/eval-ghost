@@ -1,0 +1,32 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\":[{\"title\":\"scheduled post without publish_at\",\"status\":\"scheduled\"}]}",
+    "ResponseBody": "{\"errors\":[{\"message\":\"publish_at is required when status is scheduled\",\"type\":\"ValidationError\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts/",
+    "QueryParams": {},
+    "StatusCode": 422,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T19:04:26.765Z",
+    "Scheme": "http",
+    "scenarioName": "posts_scheduled_missing_publish_at",
+    "UniqueFields": [
+      "posts.0.title"
+    ]
+  }
+]
