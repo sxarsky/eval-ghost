@@ -1,0 +1,63 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"newsletters\": [{\"name\": \"Editor Plus Weekly\", \"description\": \"Exercises the Editor Plus newsletter add grant\"}]}",
+    "ResponseBody": "{\"newsletters\": [{\"id\": \"6798a1b2c3d4e5f601234570\", \"name\": \"Editor Plus Weekly\", \"description\": \"Exercises the Editor Plus newsletter add grant\", \"slug\": \"editor-plus-weekly\", \"status\": \"active\", \"visibility\": \"members\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/newsletters/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T19:11:37.356Z",
+    "Scheme": "http",
+    "scenarioName": "editor_plus_can_create_newsletter",
+    "UniqueFields": [
+      "newsletters.0.name"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"newsletters\": [{\"id\": \"6798a1b2c3d4e5f601234570\", \"name\": \"Editor Plus Weekly\", \"slug\": \"editor-plus-weekly\", \"status\": \"active\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/newsletters/",
+    "QueryParams": {
+      "limit": [
+        "all"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-26T19:11:38.356Z",
+    "Scheme": "http",
+    "scenarioName": "editor_plus_can_create_newsletter"
+  }
+]
