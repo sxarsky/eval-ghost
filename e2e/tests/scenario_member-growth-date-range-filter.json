@@ -1,0 +1,36 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"start_date\": \"2024-01-01\", \"end_date\": \"2024-01-31\", \"data\": []}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/analytics/member-growth",
+    "QueryParams": {
+      "start_date": [
+        "2024-01-01"
+      ],
+      "end_date": [
+        "2024-01-31"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T03:48:40.737Z",
+    "Scheme": "http",
+    "scenarioName": "member-growth-date-range-filter"
+  }
+]
