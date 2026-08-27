@@ -1,0 +1,129 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"roles\": [{\"id\": \"6a8f8cb05f39cc000157d551\", \"name\": \"Editor Plus\", \"description\": \"Editors with extended publishing privileges\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/roles/",
+    "QueryParams": {
+      "limit": [
+        "all"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:12:14.833Z",
+    "Scheme": "http",
+    "scenarioName": "editor_plus_assignable_by_name_session_auth"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"users\": [{\"id\": \"6a8f8cb05f39cc000157d545\", \"slug\": \"eval\", \"roles\": [{\"name\": \"Owner\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/users/",
+    "QueryParams": {
+      "include": [
+        "roles"
+      ],
+      "limit": [
+        "all"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:12:15.833Z",
+    "Scheme": "http",
+    "scenarioName": "editor_plus_assignable_by_name_session_auth"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"users\": [{\"roles\": [\"Editor Plus\"]}]}",
+    "ResponseBody": "{\"users\": [{\"id\": \"6a8f8cb05f39cc000157d545\", \"roles\": [{\"name\": \"Editor Plus\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/ghost/api/admin/users/6a8f8cb05f39cc000157d545/",
+    "QueryParams": {
+      "include": [
+        "roles"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:12:16.833Z",
+    "Scheme": "http",
+    "scenarioName": "editor_plus_assignable_by_name_session_auth"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"users\": [{\"id\": \"6a8f8cb05f39cc000157d545\", \"roles\": [{\"name\": \"Editor Plus\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/users/6a8f8cb05f39cc000157d545/",
+    "QueryParams": {
+      "include": [
+        "roles"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:12:17.833Z",
+    "Scheme": "http",
+    "scenarioName": "editor_plus_assignable_by_name_session_auth"
+  }
+]

@@ -1,0 +1,148 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"tags\": [{\"name\": \"editor-plus-tag\", \"description\": \"Tag created to exercise the Editor Plus tag:all grant\"}]}",
+    "ResponseBody": "{\"tags\": [{\"id\": \"6a8f8eb45f39cc000157d889\", \"name\": \"editor-plus-tag\", \"slug\": \"editor-plus-tag\", \"visibility\": \"public\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/tags/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:12:25.387Z",
+    "Scheme": "http",
+    "scenarioName": "editor_plus_can_create_post_and_tag",
+    "UniqueFields": [
+      "tags.0.name"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\": [{\"title\": \"Editor Plus draft\", \"status\": \"draft\", \"tags\": [{\"id\": \"6a8f8eb45f39cc000157d889\"}]}]}",
+    "ResponseBody": "{\"posts\": [{\"id\": \"6a8f8ed05f39cc000157d88f\", \"title\": \"Editor Plus draft\", \"status\": \"draft\", \"tags\": [{\"id\": \"6a8f8eb45f39cc000157d889\", \"name\": \"editor-plus-tag\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts/",
+    "QueryParams": {
+      "include": [
+        "tags"
+      ]
+    },
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:12:26.387Z",
+    "Scheme": "http",
+    "scenarioName": "editor_plus_can_create_post_and_tag"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"posts\": [{\"id\": \"6a8f8ed05f39cc000157d88f\", \"title\": \"Editor Plus draft\", \"status\": \"draft\", \"tags\": [{\"id\": \"6a8f8eb45f39cc000157d889\", \"name\": \"editor-plus-tag\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/posts/6a8f8ed05f39cc000157d88f/",
+    "QueryParams": {
+      "include": [
+        "tags"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:12:27.387Z",
+    "Scheme": "http",
+    "scenarioName": "editor_plus_can_create_post_and_tag"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/posts/6a8f8ed05f39cc000157d88f/",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:12:28.387Z",
+    "Scheme": "http",
+    "scenarioName": "editor_plus_can_create_post_and_tag"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/tags/6a8f8eb45f39cc000157d889/",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:12:29.387Z",
+    "Scheme": "http",
+    "scenarioName": "editor_plus_can_create_post_and_tag"
+  }
+]
