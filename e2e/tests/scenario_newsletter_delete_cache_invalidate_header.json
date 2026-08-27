@@ -1,0 +1,59 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"newsletters\":[{\"name\":\"Skyramp Cache Invalidate Target\",\"description\":\"created for cache invalidation header test\"}]}",
+    "ResponseBody": "{\"newsletters\":[{\"id\":\"6749c2e3f5a1b8d4e2c3a9b0\",\"name\":\"Skyramp Cache Invalidate Target\",\"description\":\"created for cache invalidation header test\",\"slug\":\"skyramp-cache-invalidate-target\",\"status\":\"active\",\"visibility\":\"members\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/newsletters",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:08:07.710Z",
+    "Scheme": "http",
+    "scenarioName": "newsletter_delete_cache_invalidate_header",
+    "UniqueFields": [
+      "newsletters.0.name"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "X-Cache-Invalidate": [
+        "/*"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/newsletters/6749c2e3f5a1b8d4e2c3a9b0",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:08:08.710Z",
+    "Scheme": "http",
+    "scenarioName": "newsletter_delete_cache_invalidate_header"
+  }
+]
