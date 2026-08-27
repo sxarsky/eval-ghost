@@ -1,0 +1,59 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\":[{\"title\":\"Draft to be rescheduled into the past\",\"status\":\"draft\"}]}",
+    "ResponseBody": "{\"posts\":[{\"id\":\"6a8f8df16ad9c60001407e19\",\"title\":\"Draft to be rescheduled into the past\",\"status\":\"draft\",\"published_at\":null,\"updated_at\":\"2026-08-27T00:00:00.000Z\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:12:29.945Z",
+    "Scheme": "http",
+    "scenarioName": "posts-edit-draft-to-scheduled-past-date-bypass",
+    "UniqueFields": [
+      "posts.0.title"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\":[{\"status\":\"scheduled\",\"publish_at\":\"2020-01-01T00:00:00.000Z\",\"updated_at\":\"2026-08-27T00:00:00.000Z\"}]}",
+    "ResponseBody": "{\"errors\":[{\"message\":\"publish_at must be a future date\",\"type\":\"ValidationError\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/ghost/api/admin/posts/6a8f8df16ad9c60001407e19/",
+    "QueryParams": {},
+    "StatusCode": 422,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T01:12:30.945Z",
+    "Scheme": "http",
+    "scenarioName": "posts-edit-draft-to-scheduled-past-date-bypass"
+  }
+]
