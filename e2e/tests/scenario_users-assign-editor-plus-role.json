@@ -1,0 +1,56 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"users\": [{\"id\": \"1\", \"email\": \"ghost-author@example.com\", \"name\": \"Ghost Author\", \"slug\": \"ghost-author\", \"roles\": [{\"name\": \"Author\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/users/",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T03:49:26.237Z",
+    "Scheme": "http",
+    "scenarioName": "users-assign-editor-plus-role"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"users\": [{\"roles\": [{\"name\": \"Editor Plus\"}]}]}",
+    "ResponseBody": "{\"users\": [{\"id\": \"1\", \"email\": \"ghost-author@example.com\", \"name\": \"Ghost Author\", \"roles\": [{\"name\": \"Editor Plus\", \"description\": \"Editors with extended publishing privileges\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/ghost/api/admin/users/1/",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T03:49:27.237Z",
+    "Scheme": "http",
+    "scenarioName": "users-assign-editor-plus-role"
+  }
+]
