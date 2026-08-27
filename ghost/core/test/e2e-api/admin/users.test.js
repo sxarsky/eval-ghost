@@ -330,7 +330,7 @@ describe('User API', function () {
             .expect(({body}) => {
                 assert.ok(body.errors);
                 assert.equal(body.errors.length, 1);
-                assert.match(body.errors[0].message, /cannot edit user/);
+                assert.match(body.errors[0].message, /do not have permission to perform this action/);
             });
     });
 
