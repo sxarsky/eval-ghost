@@ -1,0 +1,86 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\": [{\"title\": \"Future Scheduled Post\", \"status\": \"scheduled\", \"publish_at\": \"2099-12-31T00:00:00.000Z\"}]}",
+    "ResponseBody": "{\"posts\": [{\"id\": \"1\", \"title\": \"Future Scheduled Post\", \"status\": \"scheduled\", \"publish_at\": \"2099-12-31T00:00:00.000Z\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T04:05:56.774Z",
+    "Scheme": "http",
+    "scenarioName": "scheduled-post-future-publish-at-accepted",
+    "UniqueFields": [
+      "posts.0.title"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"posts\": [{\"id\": \"1\", \"status\": \"scheduled\", \"publish_at\": \"2099-12-31T00:00:00.000Z\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/posts/1",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T04:05:57.774Z",
+    "Scheme": "http",
+    "scenarioName": "scheduled-post-future-publish-at-accepted"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/posts/1",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T04:05:58.774Z",
+    "Scheme": "http",
+    "scenarioName": "scheduled-post-future-publish-at-accepted"
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\": [{\"title\": \"Idempotent Publisher Test\", \"status\": \"scheduled\", \"publish_at\": \"2099-01-01T00:00:00.000Z\"}]}",
+    "ResponseBody": "{\"posts\": [{\"id\": \"1\", \"title\": \"Idempotent Publisher Test\", \"status\": \"scheduled\", \"publish_at\": \"2099-01-01T00:00:00.000Z\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T04:05:52.450Z",
+    "Scheme": "http",
+    "scenarioName": "publisher-idempotent-guard",
+    "UniqueFields": [
+      "posts.0.title"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\": [{\"status\": \"published\", \"updated_at\": \"2026-01-01T00:00:00.000Z\"}]}",
+    "ResponseBody": "{\"posts\": [{\"id\": \"1\", \"status\": \"published\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/ghost/api/admin/posts/1",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T04:05:53.450Z",
+    "Scheme": "http",
+    "scenarioName": "publisher-idempotent-guard"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"posts\": [{\"id\": \"1\", \"status\": \"published\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/posts/1",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T04:05:54.450Z",
+    "Scheme": "http",
+    "scenarioName": "publisher-idempotent-guard"
+  }
+]
