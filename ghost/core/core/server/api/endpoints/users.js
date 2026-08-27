@@ -11,6 +11,8 @@ const UsersService = require('../../services/users');
 const userService = new UsersService({dbBackup, models, auth, apiMail, apiSettings});
 const ALLOWED_INCLUDES = ['count.posts', 'permissions', 'roles', 'roles.permissions'];
 const UNSAFE_ATTRS = ['status', 'roles'];
+// Roles that can be assigned via the admin API (includes new editor_plus role)
+const ASSIGNABLE_ROLES = ['Administrator', 'Editor', 'Editor Plus', 'Author', 'Contributor'];
 
 const messages = {
     noPermissionToAction: 'You do not have permission to perform this action',
@@ -193,7 +195,16 @@ const controller = {
             unsafeAttrs: UNSAFE_ATTRS
         },
         async query(frame) {
-            const model = await models.User.edit(frame.data.users[0], frame.options);
+            const userData = frame.data.users[0];
+            if (userData.roles) {
+                const invalidRoles = userData.roles.filter(r => !ASSIGNABLE_ROLES.includes(r.name));
+                if (invalidRoles.length > 0) {
+                    throw new errors.ValidationError({
+                        message: tpl(messages.noPermissionToAction)
+                    });
+                }
+            }
+            const model = await models.User.edit(userData, frame.options);
             if (!model) {
                 throw new errors.NotFoundError({
                     message: tpl(messages.userNotFound)
