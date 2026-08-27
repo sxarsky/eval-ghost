@@ -1,0 +1,59 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"members\": [{\"email\": \"skyramp_growth@example.com\", \"name\": \"Skyramp Growth Member\"}]}",
+    "ResponseBody": "{\"members\": [{\"id\": \"6a8f83e29b22830001347699\", \"email\": \"skyramp_growth@example.com\", \"name\": \"Skyramp Growth Member\", \"created_at\": \"2026-08-27T00:25:06.000Z\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/members/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T00:25:30.157Z",
+    "Scheme": "http",
+    "scenarioName": "analytics_member_growth_date_bucketing",
+    "UniqueFields": [
+      "members.0.email"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"start_date\": \"2026-07-28\", \"end_date\": \"2026-08-27\", \"data\": [{\"date\": \"2026-08-27\", \"count\": 1}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/analytics/member-growth/",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-27T00:25:31.157Z",
+    "Scheme": "http",
+    "scenarioName": "analytics_member_growth_date_bucketing"
+  }
+]
