@@ -172,7 +172,30 @@ const controller = {
             unsafeAttrs: unsafeAttrs
         },
         async query(frame) {
-            const model = await models.Post.add(frame.data.posts[0], frame.options);
+            const postData = frame.data.posts[0];
+
+            // Validate publish_at when status is scheduled
+            if (postData.status === 'scheduled') {
+                if (!postData.publish_at) {
+                    throw new errors.ValidationError({
+                        message: 'publish_at is required when status is scheduled'
+                    });
+                }
+                const publishAt = new Date(postData.publish_at);
+                if (Number.isNaN(publishAt.getTime())) {
+                    throw new errors.ValidationError({
+                        message: 'publish_at must be a valid date'
+                    });
+                }
+                if (publishAt <= new Date()) {
+                    throw new errors.ValidationError({
+                        message: 'publish_at must be a future date',
+                        errorDetails: {code: 'PAST_SCHEDULE'}
+                    });
+                }
+            }
+
+            const model = await models.Post.add(postData, frame.options);
             if (model.get('status') === 'published') {
                 frame.setHeader('X-Cache-Invalidate', '/*');
             }
