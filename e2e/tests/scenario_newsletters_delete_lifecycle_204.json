@@ -1,0 +1,86 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"newsletters\":[{\"name\":\"Skyramp Delete Lifecycle\",\"description\":\"Created by the Skyramp newsletter delete lifecycle test\"}]}",
+    "ResponseBody": "{\"newsletters\":[{\"id\":\"6b3e9f1a2c4d5e6f70819a2b\",\"name\":\"Skyramp Delete Lifecycle\",\"description\":\"Created by the Skyramp newsletter delete lifecycle test\",\"slug\":\"skyramp-delete-lifecycle\",\"status\":\"active\",\"visibility\":\"members\",\"subscribe_on_signup\":true,\"sort_order\":1}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/newsletters",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:40:09.608Z",
+    "Scheme": "http",
+    "scenarioName": "newsletters_delete_lifecycle_204",
+    "UniqueFields": [
+      "newsletters.0.name"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/newsletters/6b3e9f1a2c4d5e6f70819a2b",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:40:10.608Z",
+    "Scheme": "http",
+    "scenarioName": "newsletters_delete_lifecycle_204"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/newsletters/6b3e9f1a2c4d5e6f70819a2b",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:40:11.608Z",
+    "Scheme": "http",
+    "scenarioName": "newsletters_delete_lifecycle_204"
+  }
+]

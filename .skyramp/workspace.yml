@@ -1,20 +1,12 @@
-# Skyramp Workspace Configuration for Ghost eval.
-# Copied into the cloned repo by eval-testbot.sh before the agent runs.
-# Ghost Admin API uses JWT auth: Authorization: Ghost <jwt>
-# get-auth-token.sh outputs "Ghost <jwt>" as SKYRAMP_TEST_TOKEN.
-# authType: default causes the executor to send: Authorization: Ghost <jwt>
-# Ghost Content API uses ?key=<key> query-param auth — headers are not supported.
-# ghost-content service is listed for endpoint discovery only; authType: none
-# prevents Skyramp from sending a bogus auth header to content API endpoints.
+# Skyramp Workspace Configuration
 workspace:
-  repoName: mrugeshmaster/ghost-testb
-  repoUrl: git@github.com:mrugeshmaster/ghost-testb.git
+  repoName: sxarsky/eval-ghost
+  repoUrl: https://github.com/sxarsky/eval-ghost
 metadata:
   schemaVersion: v1
-  mcpVersion: 1.0.0
-  executorVersion: v1.0.0
-  createdAt: "2026-01-01T00:00:00Z"
-  updatedAt: "2026-01-01T00:00:00Z"
+  executorVersion: v1.3.40
+  createdAt: "2026-08-28T22:47:23.311Z"
+  updatedAt: "2026-08-28T22:47:23.312Z"
 services:
   - serviceName: ghost
     language: typescript
@@ -28,11 +20,11 @@ services:
     runtimeDetails:
       serverStartCommand: docker compose -f compose.dev.yaml up -d ghost-dev
       runtime: docker
-      dockerNetwork: ghost_dev
+      dockerNetwork: ghost-eval_default
   - serviceName: ghost-content
     language: typescript
     framework: playwright
-    testDirectory: e2e/tests
+    testDirectory: e2e/tests/content
     api:
       authType: none
       authHeader: ""
@@ -40,4 +32,4 @@ services:
     runtimeDetails:
       serverStartCommand: docker compose -f compose.dev.yaml up -d ghost-dev
       runtime: docker
-      dockerNetwork: ghost_dev
+      dockerNetwork: ghost-eval_default
