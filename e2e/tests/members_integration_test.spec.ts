@@ -13,6 +13,7 @@
 // Import of required libraries
 import { test, expect } from '@playwright/test';
 import { SkyrampClient, getBaseUrl, getValue } from '@skyramp/skyramp';
+import { createMember } from './skyrampUtils';
 
 // URL for test requests
 let URL_localhost = getBaseUrl("SKYRAMP_TEST_BASE_URL", "http://localhost:2368");
@@ -36,27 +37,7 @@ test('testIntegration', async () => {
     // Declaration of variables
     let members = "1";
 
-    // Request Body
-    const membersPostRequestBody = `{
-            "members": [
-                {
-                    "email": "skyramp_test@example.com",
-                    "name": "Skyramp Test Member"
-                }
-            ]
-        }`
-    
-    // Execute Request
-    let membersPostResponse = await client.sendRequest({
-        url:URL_localhost,
-        path:"/ghost/api/admin/members",
-        method:"POST",
-        body:membersPostRequestBody,
-        headers:headers
-    });
-
-    // Generated Assertions
-    expect(membersPostResponse.statusCode, 'status code').toBe(201);
+    let membersPostResponse = await createMember(client, headers, "skyramp_test@example.com", "Skyramp Test Member");
 
     // Execute Request
     let membersMembersGetResponse = await client.sendRequest({
