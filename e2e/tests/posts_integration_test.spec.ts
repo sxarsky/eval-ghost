@@ -12,6 +12,7 @@
 // Import of required libraries
 import { test, expect } from '@playwright/test';
 import { SkyrampClient, getBaseUrl, getValue } from '@skyramp/skyramp';
+import { getPost } from './skyrampUtils';
 
 // URL for test requests
 let URL_localhost = getBaseUrl("SKYRAMP_TEST_BASE_URL", "http://localhost:2368");
@@ -53,17 +54,7 @@ test('testIntegration', async () => {
     // Generated Assertions
     expect(postsPostResponse.statusCode, 'status code').toBe(201);
 
-    // Execute Request
-    let postsPostsGetResponse = await client.sendRequest({
-        url:URL_localhost,
-        path:"/ghost/api/admin/posts/{posts}",
-        method:"GET",
-        headers:headers,
-        pathParams:{"posts": posts}
-    });
-
-    // Generated Assertions
-    expect(postsPostsGetResponse.statusCode, 'status code').toBe(200);
+    let postsPostsGetResponse = await getPost(client, headers, posts);
 
     // Request Body
     const postsPostsPutRequestBody = `{
