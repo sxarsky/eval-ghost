@@ -393,6 +393,7 @@ module.exports = function apiRoutes() {
     router.post('/newsletters', mw.authAdminApi, http(api.newsletters.add));
     router.put('/newsletters/verifications/', mw.authAdminApi, http(api.newsletters.verifyPropertyUpdate));
     router.put('/newsletters/:id', mw.authAdminApi, http(api.newsletters.edit));
+    router.delete('/newsletters/:id', mw.authAdminApi, http(api.newsletters.destroy));
 
     router.get('/links', mw.authAdminApi, http(api.links.browse));
     router.put('/links/bulk', mw.authAdminApi, http(api.links.bulkEdit));
