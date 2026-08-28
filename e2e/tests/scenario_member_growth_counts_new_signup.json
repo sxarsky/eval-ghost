@@ -1,0 +1,66 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"members\":[{\"email\":\"growth-probe@example.com\",\"name\":\"Growth Probe Member\"}]}",
+    "ResponseBody": "{\"members\":[{\"id\":\"6a1f2c9d4b7e3a0c5d8f1b26\",\"email\":\"growth-probe@example.com\",\"name\":\"Growth Probe Member\",\"status\":\"free\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/members",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:38:17.114Z",
+    "Scheme": "http",
+    "scenarioName": "member_growth_counts_new_signup",
+    "UniqueFields": [
+      "members.0.email"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"analytics\":[{\"date\":\"2026-08-28\",\"count\":1}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/analytics/member-growth",
+    "QueryParams": {
+      "start_date": [
+        "2026-08-28"
+      ],
+      "end_date": [
+        "2026-08-28"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:38:18.114Z",
+    "Scheme": "http",
+    "scenarioName": "member_growth_counts_new_signup"
+  }
+]
