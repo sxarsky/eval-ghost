@@ -1,0 +1,59 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"newsletters\":[{\"name\":\"Skyramp Archived Newsletter\",\"description\":\"Archived newsletter created by the Skyramp delete test\",\"status\":\"archived\"}]}",
+    "ResponseBody": "{\"newsletters\":[{\"id\":\"7c4a0e2b3d5f6a7b81920c3d\",\"name\":\"Skyramp Archived Newsletter\",\"description\":\"Archived newsletter created by the Skyramp delete test\",\"slug\":\"skyramp-archived-newsletter\",\"status\":\"archived\",\"visibility\":\"members\",\"subscribe_on_signup\":true}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/newsletters",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:40:16.635Z",
+    "Scheme": "http",
+    "scenarioName": "newsletters_delete_archived_newsletter",
+    "UniqueFields": [
+      "newsletters.0.name"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/newsletters/7c4a0e2b3d5f6a7b81920c3d",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:40:17.635Z",
+    "Scheme": "http",
+    "scenarioName": "newsletters_delete_archived_newsletter"
+  }
+]
