@@ -1,0 +1,56 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"config\": {\"version\": \"6.37\", \"environment\": \"development\", \"database\": \"mysql8\", \"mail\": \"SMTP\", \"useGravatar\": true, \"labs\": {}, \"stripeDirect\": false, \"emailAnalytics\": true}}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/config",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:01:10.496Z",
+    "Scheme": "http",
+    "scenarioName": "admin_api_registry_intact_after_slack_getter_removal"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"site\": {\"title\": \"Ghost Eval\", \"description\": \"Thoughts, stories and ideas.\", \"logo\": null, \"icon\": null, \"accent_color\": \"#FF1A75\", \"locale\": \"en\", \"url\": \"http://localhost:2368/\", \"version\": \"6.37\"}}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/site",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:01:11.496Z",
+    "Scheme": "http",
+    "scenarioName": "admin_api_registry_intact_after_slack_getter_removal"
+  }
+]
