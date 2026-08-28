@@ -1,0 +1,63 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"roles\": [{\"id\": \"6a920d60b21bbf000135a615\", \"name\": \"Editor Plus\", \"description\": \"Editors with extended publishing privileges\", \"created_at\": \"2026-08-28T22:36:16.000Z\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/roles/",
+    "QueryParams": {
+      "permissions": [
+        "assign"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:45:59.332Z",
+    "Scheme": "http",
+    "scenarioName": "invites_editor_plus_role_permission"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"invites\": [{\"role_id\": \"6a920d60b21bbf000135a615\", \"email\": \"editor-plus-invite@example.com\"}]}",
+    "ResponseBody": "{\"invites\": [{\"id\": \"6a920d60b21bbf000135a700\", \"role_id\": \"6a920d60b21bbf000135a615\", \"status\": \"pending\", \"email\": \"editor-plus-invite@example.com\", \"created_at\": \"2026-08-28T22:40:00.000Z\", \"updated_at\": \"2026-08-28T22:40:00.000Z\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/invites/",
+    "QueryParams": {},
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:46:00.332Z",
+    "Scheme": "http",
+    "scenarioName": "invites_editor_plus_role_permission",
+    "UniqueFields": [
+      "invites.0.email"
+    ]
+  }
+]

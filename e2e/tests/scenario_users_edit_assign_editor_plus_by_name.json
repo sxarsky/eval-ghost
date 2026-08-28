@@ -1,0 +1,63 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"users\": [{\"id\": \"6a920d60b21bbf000135a609\", \"name\": \"Eval Admin\", \"slug\": \"eval\", \"email\": \"eval@ghost.local\", \"status\": \"active\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/users/",
+    "QueryParams": {
+      "limit": [
+        "1"
+      ],
+      "include": [
+        "roles"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:46:06.993Z",
+    "Scheme": "http",
+    "scenarioName": "users_edit_assign_editor_plus_by_name"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"users\": [{\"roles\": [\"Editor Plus\"]}]}",
+    "ResponseBody": "{\"users\": [{\"id\": \"6a920d60b21bbf000135a609\", \"name\": \"Eval Admin\", \"slug\": \"eval\", \"email\": \"eval@ghost.local\", \"status\": \"active\", \"roles\": [{\"id\": \"6a920d60b21bbf000135a615\", \"name\": \"Editor Plus\", \"description\": \"Editors with extended publishing privileges\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Authorization": [
+        "Ghost SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "PUT",
+    "Path": "/ghost/api/admin/users/6a920d60b21bbf000135a609",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-08-28T22:46:07.993Z",
+    "Scheme": "http",
+    "scenarioName": "users_edit_assign_editor_plus_by_name"
+  }
+]
