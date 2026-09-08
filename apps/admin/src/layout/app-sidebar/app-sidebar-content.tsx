@@ -15,8 +15,6 @@ function AppSidebarContent() {
         bannerContainerClassName = 'pb-[110px]';
     } else if (bannerType === 'upgrade') {
         bannerContainerClassName = 'pb-[254px]';
-    } else if (bannerType === 'whats-new') {
-        bannerContainerClassName = 'pb-[180px]';
     }
 
     return (
