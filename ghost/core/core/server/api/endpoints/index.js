@@ -153,10 +153,6 @@ module.exports = {
         return apiFramework.pipeline(require('./oembed'), localUtils);
     },
 
-    get slack() {
-        return apiFramework.pipeline(require('./slack'), localUtils);
-    },
-
     get config() {
         return apiFramework.pipeline(require('./config'), localUtils);
     },
