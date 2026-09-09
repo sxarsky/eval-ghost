@@ -1,0 +1,218 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"integrations\":[{\"id\":\"6aa0d288ea6858000161ecc2\",\"name\":\"Ghost Core Content API\",\"type\":\"core\",\"api_keys\":[{\"id\":\"6aa0d288ea6858000161ecc3\",\"type\":\"content\",\"secret\":\"d032be386ca30f2551d0aacbca\",\"integration_id\":\"6aa0d288ea6858000161ecc2\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/integrations/",
+    "QueryParams": {
+      "include": [
+        "api_keys"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:36:42.547Z",
+    "Scheme": "http",
+    "scenarioName": "content_posts_by_slug_lookup"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"posts\":[{\"id\":\"6aa0d288ea6858000161ecb0\",\"slug\":\"coming-soon\",\"title\":\"Coming soon\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/content/posts/",
+    "QueryParams": {
+      "key": [
+        "d032be386ca30f2551d0aacbca"
+      ],
+      "limit": [
+        "1"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:36:43.547Z",
+    "Scheme": "http",
+    "scenarioName": "content_posts_by_slug_lookup"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"posts\":[{\"id\":\"6aa0d288ea6858000161ecb0\",\"slug\":\"coming-soon\",\"title\":\"Coming soon\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/content/posts/by-slug/coming-soon/",
+    "QueryParams": {
+      "key": [
+        "d032be386ca30f2551d0aacbca"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:36:44.547Z",
+    "Scheme": "http",
+    "scenarioName": "content_posts_by_slug_lookup"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"errors\":[{\"message\":\"Resource not found error, cannot read post.\",\"type\":\"NotFoundError\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/content/posts/by-slug/no-such-post-xyz-9f21/",
+    "QueryParams": {
+      "key": [
+        "d032be386ca30f2551d0aacbca"
+      ]
+    },
+    "StatusCode": 404,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:36:45.547Z",
+    "Scheme": "http",
+    "scenarioName": "content_posts_by_slug_lookup"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"errors\":[{\"message\":\"Authorization failed\",\"type\":\"NoPermissionError\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/content/posts/by-slug/coming-soon/",
+    "QueryParams": {},
+    "StatusCode": 403,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:36:46.547Z",
+    "Scheme": "http",
+    "scenarioName": "content_posts_by_slug_lookup"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"errors\":[{\"message\":\"Unknown Content API Key\",\"type\":\"UnauthorizedError\",\"code\":\"UNKNOWN_CONTENT_API_KEY\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/content/posts/by-slug/coming-soon/",
+    "QueryParams": {
+      "key": [
+        "deadbeefdeadbeefdeadbeef00"
+      ]
+    },
+    "StatusCode": 401,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:36:47.547Z",
+    "Scheme": "http",
+    "scenarioName": "content_posts_by_slug_lookup"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{}",
+    "ResponseBody": "{\"errors\":[{\"message\":\"Resource not found\",\"type\":\"NotFoundError\"}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/content/posts/by-slug/coming-soon/",
+    "QueryParams": {
+      "key": [
+        "d032be386ca30f2551d0aacbca"
+      ]
+    },
+    "StatusCode": 404,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:36:48.547Z",
+    "Scheme": "http",
+    "scenarioName": "content_posts_by_slug_lookup"
+  }
+]
