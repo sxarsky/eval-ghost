@@ -1,0 +1,83 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"config\":{\"version\":\"6.36.0-rc.0\",\"environment\":\"production\",\"database\":\"sqlite3\"}}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/config/",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:42:13.985Z",
+    "Scheme": "http",
+    "scenarioName": "slack_test_removed_authenticated_404"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{}",
+    "ResponseBody": "{\"errors\":[{\"message\":\"Resource not found\",\"context\":null,\"type\":\"NotFoundError\",\"details\":null,\"property\":null,\"help\":null,\"code\":null,\"id\":\"060706d0-abff-11f1-98de-df30db46258e\",\"ghostErrorCode\":null}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/slack/test/",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:42:14.985Z",
+    "Scheme": "http",
+    "scenarioName": "slack_test_removed_authenticated_404"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{}",
+    "ResponseBody": "{\"errors\":[{\"message\":\"Resource not found\",\"context\":null,\"type\":\"NotFoundError\",\"details\":null,\"property\":null,\"help\":null,\"code\":null,\"id\":\"0a1b2c3d-abff-11f1-98de-df30db46258e\",\"ghostErrorCode\":null}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ],
+      "Cookie": [
+        "SKYRAMP_PLACEHOLDER_TOKEN"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/slack/test",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:42:15.985Z",
+    "Scheme": "http",
+    "scenarioName": "slack_test_removed_authenticated_404"
+  }
+]
