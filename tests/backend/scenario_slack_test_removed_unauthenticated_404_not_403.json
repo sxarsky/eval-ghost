@@ -1,0 +1,50 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"site\":{\"title\":\"Ghost Eval\",\"description\":\"Thoughts, stories and ideas.\",\"url\":\"http://localhost:2368/\"}}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/site/",
+    "QueryParams": {},
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:42:29.308Z",
+    "Scheme": "http",
+    "scenarioName": "slack_test_removed_unauthenticated_404_not_403"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{}",
+    "ResponseBody": "{\"errors\":[{\"message\":\"Resource not found\",\"context\":null,\"type\":\"NotFoundError\",\"details\":null,\"property\":null,\"help\":null,\"code\":null,\"id\":\"1f2e3d4c-abff-11f1-98de-df30db46258e\",\"ghostErrorCode\":null}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/slack/test/",
+    "QueryParams": {},
+    "StatusCode": 404,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:42:30.308Z",
+    "Scheme": "http",
+    "scenarioName": "slack_test_removed_unauthenticated_404_not_403"
+  }
+]
