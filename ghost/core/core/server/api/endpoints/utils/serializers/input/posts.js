@@ -305,5 +305,12 @@ module.exports = {
 
         defaultFormat(frame);
         defaultRelations(frame);
+    },
+
+    duplicate(apiConfig, frame) {
+        debug('duplicate');
+
+        defaultFormat(frame);
+        defaultRelations(frame);
     }
 };

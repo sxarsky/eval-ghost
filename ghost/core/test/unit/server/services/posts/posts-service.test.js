@@ -198,6 +198,178 @@ describe('Posts Service', function () {
         });
     });
 
+    describe('duplicatePost', function () {
+        const makeModelStub = (key, value) => ({
+            get(k) {
+                if (k === key) {
+                    return value;
+                }
+            }
+        });
+
+        const POST_ID = 'abc123';
+
+        let postModelStub, existingPostModel, frame;
+
+        const makePostService = () => new PostsService({
+            models: {
+                Post: postModelStub
+            }
+        });
+
+        beforeEach(function () {
+            postModelStub = {
+                add: sinon.stub(),
+                findOne: sinon.stub()
+            };
+
+            existingPostModel = {
+                attributes: {
+                    id: POST_ID,
+                    title: 'Test Post',
+                    slug: 'test-post',
+                    status: 'published',
+                    featured: true,
+                    email_recipient_filter: 'all',
+                    newsletter_id: 'abc123',
+                    lexical: '{"root":{}}'
+                },
+                related: sinon.stub()
+            };
+
+            frame = {
+                options: {
+                    id: POST_ID
+                }
+            };
+
+            postModelStub.findOne.withArgs({
+                id: POST_ID,
+                status: 'all'
+            }, frame.options).resolves(existingPostModel);
+
+            postModelStub.add.resolves();
+
+            existingPostModel.related.withArgs('tags').returns([]);
+            existingPostModel.related.withArgs('posts_meta').returns({
+                isNew: () => true
+            });
+            existingPostModel.related.withArgs('tiers').returns([]);
+        });
+
+        it('creates a new post from the existing post', async function () {
+            const duplicatedPost = {
+                attributes: {
+                    id: 'def789'
+                }
+            };
+
+            postModelStub.add.resolves(duplicatedPost);
+
+            const result = await makePostService().duplicatePost(frame);
+
+            sinon.assert.calledOnceWithExactly(postModelStub.add, sinon.match.object, frame.options);
+            assert.deepEqual(result, duplicatedPost);
+        });
+
+        it('throws a not found error when the post does not exist', async function () {
+            postModelStub.findOne.withArgs({
+                id: POST_ID,
+                status: 'all'
+            }, frame.options).resolves(null);
+
+            await assert.rejects(
+                makePostService().duplicatePost(frame),
+                (err) => {
+                    assert.equal(err.errorType, 'NotFoundError');
+                    return true;
+                }
+            );
+
+            sinon.assert.notCalled(postModelStub.add);
+        });
+
+        it('copies the content of the existing post', async function () {
+            await makePostService().duplicatePost(frame);
+
+            const duplicatedPostData = postModelStub.add.getCall(0).args[0];
+
+            assert.equal(duplicatedPostData.lexical, '{"root":{}}');
+            assert.equal(duplicatedPostData.id, undefined);
+            assert.equal(duplicatedPostData.slug, undefined);
+        });
+
+        it('suffixes the title of the new post', async function () {
+            await makePostService().duplicatePost(frame);
+
+            const duplicatedPostData = postModelStub.add.getCall(0).args[0];
+
+            assert.equal(duplicatedPostData.title, 'Test Post (Copy)');
+        });
+
+        it('resets the publishing state of the new post', async function () {
+            await makePostService().duplicatePost(frame);
+
+            const duplicatedPostData = postModelStub.add.getCall(0).args[0];
+
+            assert.equal(duplicatedPostData.status, 'draft');
+            assert.equal(duplicatedPostData.featured, false);
+            assert.equal(duplicatedPostData.email_recipient_filter, undefined);
+            assert.equal(duplicatedPostData.newsletter_id, undefined);
+        });
+
+        it('adds tags to the new post', async function () {
+            existingPostModel.related.withArgs('tags').returns([
+                makeModelStub('id', 'tag-1'),
+                makeModelStub('id', 'tag-2')
+            ]);
+
+            await makePostService().duplicatePost(frame);
+
+            const duplicatedPostData = postModelStub.add.getCall(0).args[0];
+
+            assert.deepEqual(duplicatedPostData.tags, [
+                {id: 'tag-1'},
+                {id: 'tag-2'}
+            ]);
+        });
+
+        it('adds meta data to the new post', async function () {
+            const postMetaModel = {
+                attributes: {
+                    post_id: POST_ID,
+                    meta_title: 'Test Post',
+                    meta_description: 'Test Post Description',
+                    email_only: 1
+                },
+                isNew: () => false
+            };
+
+            existingPostModel.related.withArgs('posts_meta').returns(postMetaModel);
+
+            await makePostService().duplicatePost(frame);
+
+            const duplicatedPostData = postModelStub.add.getCall(0).args[0];
+
+            assert.deepEqual(duplicatedPostData.posts_meta, {
+                meta_title: 'Test Post',
+                meta_description: 'Test Post Description'
+            });
+        });
+
+        it('adds tiers to the new post', async function () {
+            existingPostModel.related.withArgs('tiers').returns([
+                makeModelStub('id', 'tier-1')
+            ]);
+
+            await makePostService().duplicatePost(frame);
+
+            const duplicatedPostData = postModelStub.add.getCall(0).args[0];
+
+            assert.deepEqual(duplicatedPostData.tiers, [{id: 'tier-1'}]);
+        });
+    });
+
     describe('generateCopiedPostLocationFromUrl', function () {
         it('generates a location from the provided url', function () {
             const postsService = new PostsService({});

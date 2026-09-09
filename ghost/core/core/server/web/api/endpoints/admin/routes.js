@@ -37,6 +37,7 @@ module.exports = function apiRoutes() {
     router.put('/posts/:id', mw.authAdminApi, http(api.posts.edit));
     router.delete('/posts/:id', mw.authAdminApi, http(api.posts.destroy));
     router.post('/posts/:id/copy', mw.authAdminApi, http(api.posts.copy));
+    router.post('/posts/:id/duplicate', mw.authAdminApi, http(api.posts.duplicate));
 
     router.get('/mentions', mw.authAdminApi, http(api.mentions.browse));
 
