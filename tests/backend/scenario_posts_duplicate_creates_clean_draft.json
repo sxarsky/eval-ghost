@@ -1,0 +1,174 @@
+[
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{\"posts\": [{\"title\": \"Skyramp duplicate source\", \"status\": \"published\", \"featured\": true, \"lexical\": \"{\\\"root\\\":{\\\"children\\\":[{\\\"children\\\":[{\\\"detail\\\":0,\\\"format\\\":0,\\\"mode\\\":\\\"normal\\\",\\\"style\\\":\\\"\\\",\\\"text\\\":\\\"Body to duplicate\\\",\\\"type\\\":\\\"extended-text\\\",\\\"version\\\":1}],\\\"direction\\\":\\\"ltr\\\",\\\"format\\\":\\\"\\\",\\\"indent\\\":0,\\\"type\\\":\\\"paragraph\\\",\\\"version\\\":1}],\\\"direction\\\":\\\"ltr\\\",\\\"format\\\":\\\"\\\",\\\"indent\\\":0,\\\"type\\\":\\\"root\\\",\\\"version\\\":1}}\", \"custom_excerpt\": \"Excerpt to duplicate\", \"codeinjection_head\": \"<!-- skyramp-head -->\", \"codeinjection_foot\": \"<!-- skyramp-foot -->\", \"visibility\": \"paid\", \"tags\": [{\"name\": \"News\"}], \"meta_title\": \"Duplicate meta title\", \"meta_description\": \"Duplicate meta description\"}]}",
+    "ResponseBody": "{\"posts\": [{\"id\": \"aaaaaaaaaaaaaaaaaaaaaa01\", \"title\": \"Skyramp duplicate source\", \"slug\": \"skyramp-duplicate-source\", \"status\": \"published\", \"featured\": true, \"published_at\": \"2026-09-09T00:00:00.000Z\", \"visibility\": \"paid\", \"custom_excerpt\": \"Excerpt to duplicate\", \"codeinjection_head\": \"<!-- skyramp-head -->\", \"codeinjection_foot\": \"<!-- skyramp-foot -->\", \"meta_title\": \"Duplicate meta title\", \"meta_description\": \"Duplicate meta description\", \"tags\": [{\"id\": \"aaaaaaaaaaaaaaaaaaaaaa0a\", \"name\": \"News\"}], \"authors\": [{\"id\": \"aaaaaaaaaaaaaaaaaaaaaa0b\"}], \"tiers\": [{\"id\": \"aaaaaaaaaaaaaaaaaaaaaa0c\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts/",
+    "QueryParams": {
+      "formats": [
+        "mobiledoc,lexical,html"
+      ],
+      "include": [
+        "tags,authors,tiers"
+      ]
+    },
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:49:11.288Z",
+    "Scheme": "http",
+    "scenarioName": "posts_duplicate_creates_clean_draft",
+    "UniqueFields": [
+      "posts.0.title"
+    ]
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "{}",
+    "ResponseBody": "{\"posts\": [{\"id\": \"bbbbbbbbbbbbbbbbbbbbbb02\", \"title\": \"Skyramp duplicate source (Copy)\", \"slug\": \"skyramp-duplicate-source-copy\", \"status\": \"draft\", \"featured\": false, \"published_at\": null, \"visibility\": \"paid\", \"custom_excerpt\": \"Excerpt to duplicate\", \"codeinjection_head\": \"<!-- skyramp-head -->\", \"codeinjection_foot\": \"<!-- skyramp-foot -->\", \"meta_title\": \"Duplicate meta title\", \"meta_description\": \"Duplicate meta description\", \"tags\": [{\"id\": \"aaaaaaaaaaaaaaaaaaaaaa0a\", \"name\": \"News\"}], \"authors\": [{\"id\": \"aaaaaaaaaaaaaaaaaaaaaa0b\"}], \"tiers\": [{\"id\": \"aaaaaaaaaaaaaaaaaaaaaa0c\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "POST",
+    "Path": "/ghost/api/admin/posts/aaaaaaaaaaaaaaaaaaaaaa01/duplicate",
+    "QueryParams": {
+      "formats": [
+        "mobiledoc,lexical,html"
+      ],
+      "include": [
+        "tags,authors,tiers"
+      ]
+    },
+    "StatusCode": 201,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:49:12.288Z",
+    "Scheme": "http",
+    "scenarioName": "posts_duplicate_creates_clean_draft"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"posts\": [{\"id\": \"bbbbbbbbbbbbbbbbbbbbbb02\", \"title\": \"Skyramp duplicate source (Copy)\", \"slug\": \"skyramp-duplicate-source-copy\", \"status\": \"draft\", \"featured\": false, \"published_at\": null, \"visibility\": \"paid\", \"custom_excerpt\": \"Excerpt to duplicate\", \"meta_title\": \"Duplicate meta title\", \"tags\": [{\"name\": \"News\"}], \"authors\": [{\"id\": \"aaaaaaaaaaaaaaaaaaaaaa0b\"}], \"tiers\": [{\"id\": \"aaaaaaaaaaaaaaaaaaaaaa0c\"}]}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/posts/bbbbbbbbbbbbbbbbbbbbbb02/",
+    "QueryParams": {
+      "formats": [
+        "mobiledoc,lexical,html"
+      ],
+      "include": [
+        "tags,authors,tiers"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:49:13.288Z",
+    "Scheme": "http",
+    "scenarioName": "posts_duplicate_creates_clean_draft"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{\"posts\": [{\"id\": \"aaaaaaaaaaaaaaaaaaaaaa01\", \"title\": \"Skyramp duplicate source\", \"slug\": \"skyramp-duplicate-source\", \"status\": \"published\", \"featured\": true}]}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "GET",
+    "Path": "/ghost/api/admin/posts/aaaaaaaaaaaaaaaaaaaaaa01/",
+    "QueryParams": {
+      "include": [
+        "tags"
+      ]
+    },
+    "StatusCode": 200,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:49:14.288Z",
+    "Scheme": "http",
+    "scenarioName": "posts_duplicate_creates_clean_draft"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/posts/bbbbbbbbbbbbbbbbbbbbbb02/",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:49:15.288Z",
+    "Scheme": "http",
+    "scenarioName": "posts_duplicate_creates_clean_draft"
+  },
+  {
+    "Source": "192.168.65.1:39998",
+    "Destination": "localhost",
+    "RequestBody": "",
+    "ResponseBody": "{}",
+    "RequestHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "ResponseHeaders": {
+      "Content-Type": [
+        "application/json"
+      ]
+    },
+    "Method": "DELETE",
+    "Path": "/ghost/api/admin/posts/aaaaaaaaaaaaaaaaaaaaaa01/",
+    "QueryParams": {},
+    "StatusCode": 204,
+    "Port": 2368,
+    "Timestamp": "2026-09-09T03:49:16.288Z",
+    "Scheme": "http",
+    "scenarioName": "posts_duplicate_creates_clean_draft"
+  }
+]
