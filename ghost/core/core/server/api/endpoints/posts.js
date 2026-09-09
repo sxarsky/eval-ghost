@@ -330,6 +330,40 @@ const controller = {
         async query(frame) {
             return postsService.copyPost(frame);
         }
+    },
+
+    duplicate: {
+        statusCode: 201,
+        headers: {
+            location: {
+                resolve: postsService.generateCopiedPostLocationFromUrl
+            },
+            cacheInvalidate: false
+        },
+        options: [
+            'include',
+            'id',
+            'formats'
+        ],
+        validation: {
+            options: {
+                include: {
+                    values: allowedIncludes
+                },
+                id: {
+                    required: true
+                },
+                formats: {
+                    values: models.Post.allowedFormats
+                }
+            }
+        },
+        permissions: {
+            method: 'add'
+        },
+        async query(frame) {
+            return postsService.duplicatePost(frame);
+        }
     }
 };
 

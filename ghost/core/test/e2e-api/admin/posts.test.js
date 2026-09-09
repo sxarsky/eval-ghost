@@ -619,6 +619,58 @@ describe('Posts API', function () {
         });
     });
 
+    describe('Duplicate', function () {
+        it('Can duplicate a post', async function () {
+            const post = {
+                title: 'Post to duplicate',
+                status: 'published',
+                featured: true,
+                lexical: createLexical('Some content to duplicate.'),
+                tags: [{name: 'Duplicate tag'}]
+            };
+
+            const {body: postBody} = await agent
+                .post('/posts/?formats=mobiledoc,lexical,html', {
+                    headers: {
+                        'content-type': 'application/json'
+                    }
+                })
+                .body({posts: [post]})
+                .expectStatus(201);
+
+            const [postResponse] = postBody.posts;
+
+            const {body: duplicateBody, headers} = await agent
+                .post(`/posts/${postResponse.id}/duplicate?formats=mobiledoc,lexical,html`)
+                .expectStatus(201);
+
+            const [duplicateResponse] = duplicateBody.posts;
+
+            assert.notEqual(duplicateResponse.id, postResponse.id);
+            assert.equal(duplicateResponse.title, 'Post to duplicate (Copy)');
+            assert.equal(duplicateResponse.status, 'draft');
+            assert.equal(duplicateResponse.featured, false);
+            assert.equal(duplicateResponse.published_at, null);
+            assert.equal(duplicateResponse.lexical, postResponse.lexical);
+            assert.deepEqual(
+                duplicateResponse.tags.map(tag => tag.name),
+                postResponse.tags.map(tag => tag.name)
+            );
+            assert.match(headers.location, new RegExp(`/posts/${duplicateResponse.id}/$`));
+        });
+
+        it('Cannot duplicate a post that does not exist', async function () {
+            await agent
+                .post('/posts/6dc4c2d6b9f6e1e9d1e5c3a1/duplicate')
+                .expectStatus(404)
+                .matchBodySnapshot({
+                    errors: [{
+                        id: anyErrorId
+                    }]
+                });
+        });
+    });
+
     describe('Convert', function () {
         it('can convert a mobiledoc post to lexical', async function () {
             const mobiledoc = createMobiledoc('This is some great content.');

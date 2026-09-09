@@ -1830,6 +1830,24 @@ Object {
 }
 `;
 
+exports[`Posts API Duplicate Cannot duplicate a post that does not exist 1: [body] 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "code": null,
+      "context": null,
+      "details": null,
+      "ghostErrorCode": null,
+      "help": null,
+      "id": StringMatching /\\[a-f0-9\\]\\{8\\}-\\[a-f0-9\\]\\{4\\}-\\[a-f0-9\\]\\{4\\}-\\[a-f0-9\\]\\{4\\}-\\[a-f0-9\\]\\{12\\}/,
+      "message": "Post not found.",
+      "property": null,
+      "type": "NotFoundError",
+    },
+  ],
+}
+`;
+
 exports[`Posts API Export Can export 1: [headers] 1`] = `
 Object {
   "access-control-allow-origin": "http://127.0.0.1:2369",
