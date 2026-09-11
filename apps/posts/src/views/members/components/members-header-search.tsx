@@ -15,7 +15,7 @@ const MembersHeaderSearch: React.FC<MembersHeaderSearchProps> = ({
     autoFocus = false,
     ariaLabel = 'Search members'
 }) => {
-    const testId = ariaLabel === 'Search members mobile' ? 'members-mobile-search-input' : 'members-search-input';
+    const testId = ariaLabel === 'Search members mobile' ? 'members-mobile-search-field' : 'members-search-field';
 
     return (
         <InputGroup className="h-[34px] min-w-0 basis-full lg:w-[180px] lg:basis-auto xl:w-[240px]">
