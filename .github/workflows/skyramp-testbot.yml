@@ -119,6 +119,7 @@ jobs:
             bash -c 'status=$(curl -o /dev/null -s -w "%{http_code}" http://localhost:2368/ghost/api/admin/site/); [[ "$status" == "200" || "$status" == "401" ]]'
           targetReadyCheckTimeout: 1200
           authTokenCommand: 'bash get-auth-token.sh'
+          uiCredentials: 'eval@ghost.local:Skyramp!Eval2024#'
 
           testDirectory: 'tests/backend'
           autoCommit: true
