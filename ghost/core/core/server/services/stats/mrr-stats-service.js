@@ -33,6 +33,52 @@ class MrrStatsService {
     }
 
     /**
+     * Get the current MRR contribution of each tier, grouped by tier and currency.
+     * Useful for dashboards that want to show which tiers drive recurring revenue.
+     * @returns {Promise<MrrByTier[]>}
+     */
+    async getMrrByTier() {
+        const knex = this.knex;
+        const rows = await knex('members_stripe_customers_subscriptions')
+            .select(knex.raw(`products.id AS tier`))
+            .select(knex.raw(`products.name AS tier_name`))
+            .select(knex.raw(`members_stripe_customers_subscriptions.plan_currency AS currency`))
+            .select(knex.raw(`members_stripe_customers_subscriptions.plan_interval AS cadence`))
+            .select(knex.raw(`SUM(members_stripe_customers_subscriptions.plan_amount) AS amount`))
+            .join('stripe_prices', 'stripe_prices.stripe_price_id', '=', 'members_stripe_customers_subscriptions.stripe_price_id')
+            .join('stripe_products', 'stripe_products.stripe_product_id', '=', 'stripe_prices.stripe_product_id')
+            .join('products', 'products.id', '=', 'stripe_products.product_id')
+            .whereNot('members_stripe_customers_subscriptions.mrr', 0)
+            .groupBy('tier', 'tier_name', 'currency', 'cadence');
+
+        // Collapse the per-cadence rows into a single monthly contribution per tier/currency
+        /** @type {Object.<string, MrrByTier>} */
+        const byTier = {};
+        for (const row of rows) {
+            const key = `${row.tier}:${row.currency}`;
+            if (!byTier[key]) {
+                byTier[key] = {
+                    tier: row.tier,
+                    tier_name: row.tier_name,
+                    currency: row.currency,
+                    mrr: 0
+                };
+            }
+
+            // Normalise yearly plans to a monthly figure before adding to the tier total
+            const monthly = row.cadence === 'year'
+                ? Math.floor(row.amount / 12)
+                : row.amount;
+
+            byTier[key].mrr += monthly;
+        }
+
+        return Object.values(byTier).sort((a, b) => {
+            return a.currency.localeCompare(b.currency) || b.mrr - a.mrr;
+        });
+    }
+
+    /**
      * Get the MRR deltas for all days (from old to new), grouped by currency (ascending alphabetically)
      * @param {string} [dateFrom] - Start date to fetch deltas from
      * @returns {Promise<MrrDelta[]>} The deltas sorted from new to old
@@ -63,6 +109,9 @@ class MrrStatsService {
     async getHistory(options = {}) {
         // Fetch current total amounts and start counting from there
         const totals = await this.getCurrentMrr();
+
+        // Fetch the current per-tier breakdown to expose alongside the totals
+        const byTier = await this.getMrrByTier();
 
         const rows = await this.fetchAllDeltas(options.dateFrom);
 
@@ -128,7 +177,8 @@ class MrrStatsService {
         return {
             data: results,
             meta: {
-                totals
+                totals,
+                by_tier: byTier
             }
         };
     }
@@ -141,6 +191,15 @@ module.exports = MrrStatsService;
  * @type {Object}
  * @property {number} mrr
  * @property {string} currency
+ */
+
+/**
+ * @typedef MrrByTier
+ * @type {Object}
+ * @property {string} tier Tier (product) id
+ * @property {string} tier_name Tier (product) name
+ * @property {string} currency
+ * @property {number} mrr MRR contribution of this tier
  */
 
 /**
@@ -163,4 +222,5 @@ module.exports = MrrStatsService;
  * @property {MrrRecord[]} data List of the total members by status for each day, including the paid deltas paid_subscribed and paid_canceled
  * @property {Object} meta
  * @property {MrrByCurrency[]} meta.totals
+ * @property {MrrByTier[]} meta.by_tier
  */
