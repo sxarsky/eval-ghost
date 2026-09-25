@@ -17,6 +17,7 @@ module.exports = function apiRoutes() {
 
     // ## Public
     router.get('/site', mw.publicAdminApi, http(api.site.read));
+    router.get('/site/stats', mw.authAdminApi, http(api.siteStats.read));
 
     // ## Configuration
     router.get('/config', mw.authAdminApi, http(api.config.read));
