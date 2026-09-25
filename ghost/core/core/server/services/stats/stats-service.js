@@ -28,6 +28,17 @@ class StatsService {
     }
 
     /**
+     * Get the current MRR broken down by tier and currency.
+     * @returns {Promise<{data: import('./mrr-stats-service').MrrByTier[]}>}
+     */
+    async getMRRByTier() {
+        const byTier = await this.mrr.getMrrByTier();
+        return {
+            data: byTier
+        };
+    }
+
+    /**
      * @param {Object} [options]
      * @param {string} [options.dateFrom] - Start date in YYYY-MM-DD format
      * @param {string} [options.endDate] - End date in YYYY-MM-DD format

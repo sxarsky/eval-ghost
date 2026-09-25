@@ -51,6 +51,24 @@ const controller = {
             });
         }
     },
+    mrrByTier: {
+        headers: {
+            cacheInvalidate: false
+        },
+        permissions: {
+            docName: 'members',
+            method: 'browse'
+        },
+        cache: statsService.cache,
+        generateCacheKeyData() {
+            return {
+                method: 'mrrByTier'
+            };
+        },
+        async query() {
+            return await statsService.api.getMRRByTier();
+        }
+    },
     subscriptions: {
         headers: {
             cacheInvalidate: false
